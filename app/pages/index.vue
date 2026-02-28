@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { Shader, Swirl } from "shaders/vue";
+import { Aurora, Shader, Swirl } from "shaders/vue";
 
-const { sage, ink } = useTheme();
+const { ink, cream, red, sage } = useTheme();
 </script>
 
 <template>
-  <Shader class="h-screen w-screen">
-    <Swirl :color-a="sage" :color-b="ink" />
+  <Shader class="h-screen w-screen bg-(--ink)">
+    <Aurora :color-a="red" :color-b="cream" />
   </Shader>
 </template>

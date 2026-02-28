@@ -1,7 +1,7 @@
 const theme = {
   sage: "#8f9b82",
   ink: "#151514",
-  cream: "#eae1d7",
+  cream: "#ceb9a1",
   red: "#d0253e",
   orange: "#fba337",
 } as const;
