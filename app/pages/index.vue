@@ -3,7 +3,7 @@ import { Shader, Swirl } from "shaders/vue";
 </script>
 
 <template>
-  <Shader>
+  <Shader class="h-screen w-screen">
     <Swirl />
   </Shader>
 </template>
