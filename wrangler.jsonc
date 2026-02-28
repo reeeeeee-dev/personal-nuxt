@@ -1,15 +1,15 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "personal-nuxt",
-  "compatibility_date": "2026-02-26",
-  "observability": {
-    "enabled": true,
-  },
-  "main": "./.output/server/index.mjs",
-  "assets": {
-    "binding": "ASSETS",
-    "directory": "./.output/public/",
-  },
-  "compatibility_flags": ["nodejs_compat"],
-  "routes": [{ "pattern": "v2.reetikpatel.me", "custom_domain": true }],
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "personal-nuxt",
+	"compatibility_date": "2026-02-26",
+	"observability": {
+		"enabled": true
+	},
+	"main": "./.output/server/index.mjs",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "./.output/public/"
+	},
+	"compatibility_flags": ["nodejs_compat"],
+	"routes": [{ "pattern": "v2.reetikpatel.me", "custom_domain": true }]
 }
