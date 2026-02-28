@@ -11,4 +11,5 @@
     "directory": "./.output/public/",
   },
   "compatibility_flags": ["nodejs_compat"],
+  "routes": [{ "pattern": "v2.reetikpatel.me", "custom_domain": true }],
 }
