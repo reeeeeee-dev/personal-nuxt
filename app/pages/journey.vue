@@ -5,14 +5,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="page">
+  <div class="p-8">
     <h1>Journey</h1>
     <p>Your journey.</p>
   </div>
 </template>
-
-<style scoped>
-.page {
-  padding: 2rem;
-}
-</style>

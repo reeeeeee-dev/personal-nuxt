@@ -8,35 +8,15 @@ const links = [
 </script>
 
 <template>
-  <nav class="navbar">
+  <nav class="flex gap-6 px-8 py-4 border-b border-gray-200">
     <NuxtLink
       v-for="link in links"
       :key="link.to"
       :to="link.to"
-      class="nav-link"
-      active-class="nav-link--active"
+      class="no-underline text-inherit font-medium hover:underline"
+      active-class="underline"
     >
       {{ link.label }}
     </NuxtLink>
   </nav>
 </template>
-
-<style scoped>
-.navbar {
-  display: flex;
-  gap: 1.5rem;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid var(--color-border, #eee);
-}
-
-.nav-link {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-}
-
-.nav-link:hover,
-.nav-link--active {
-  text-decoration: underline;
-}
-</style>
