@@ -17,20 +17,7 @@ onMounted(() => {
       :duration="400"
     />
 
-    <!-- Initial site load overlay -->
-    <Transition name="site-load">
-      <div
-        v-show="!isAppReady"
-        class="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
-        aria-live="polite"
-        aria-busy="true"
-      >
-        <div
-          class="h-10 w-10 rounded-full border-2 border-gray-200 border-t-gray-800 animate-spin"
-          aria-hidden="true"
-        />
-      </div>
-    </Transition>
+    <SiteLoading :ready="isAppReady" />
 
     <Navbar />
     <main>
@@ -58,15 +45,5 @@ onMounted(() => {
 .page-leave-from {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Site load overlay fade-out (Vue transition hooks) */
-.site-load-enter-active,
-.site-load-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.site-load-leave-to {
-  opacity: 0;
 }
 </style>
