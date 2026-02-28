@@ -2,26 +2,28 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-	compatibilityDate: "2025-07-15",
-	devtools: { enabled: true },
-	modules: ["nitro-cloudflare-dev"],
+  compatibilityDate: "2025-07-15",
+  devtools: { enabled: true },
+  modules: ["nitro-cloudflare-dev"],
 
-	css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css"],
 
-	vite: {
-		plugins: [tailwindcss()],
-	},
+  vite: {
+    // Cast: @tailwindcss/vite and Nuxt resolve different Vite type versions (hotUpdate context mismatch)
+    // biome-ignore lint/suspicious/noExplicitAny: Vite plugin type version mismatch between Nuxt and @tailwindcss/vite
+    plugins: [tailwindcss()] as any,
+  },
 
-	app: {
-		pageTransition: { name: "page", mode: "out-in" },
-	},
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
 
-	nitro: {
-		preset: "cloudflare_module",
+  nitro: {
+    preset: "cloudflare_module",
 
-		cloudflare: {
-			deployConfig: true,
-			nodeCompat: true,
-		},
-	},
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+    },
+  },
 });
