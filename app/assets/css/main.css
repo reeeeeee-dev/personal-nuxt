@@ -7,3 +7,8 @@
   --red: #d0253e;
   --orange: #fba337;
 }
+
+html,
+body {
+  overscroll-behavior: none;
+}
