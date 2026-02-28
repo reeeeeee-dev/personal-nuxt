@@ -1,21 +1,26 @@
 {
-	"name": "personal-nuxt",
-	"type": "module",
-	"private": true,
-	"scripts": {
-		"build": "nuxt build",
-		"dev": "nuxt dev",
-		"generate": "nuxt generate",
-		"preview": "nuxt preview",
-		"postinstall": "nuxt prepare"
-	},
-	"dependencies": {
-		"nuxt": "^4.3.1",
-		"vue": "^3.5.28",
-		"vue-router": "^4.6.4"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.4.4",
-		"@nuxtjs/tailwindcss": "^6.14.0"
-	}
+  "name": "personal-nuxt",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "yarn run build && wrangler dev",
+    "postinstall": "nuxt prepare",
+    "deploy": "yarn run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "nuxt": "^4.3.1",
+    "vue": "^3.5.28",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.4",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "nitro-cloudflare-dev": "^0.2.2",
+    "wrangler": "^4.69.0"
+  },
+  "packageManager": "pnpm@8.6.9+sha1.5c56677cdd07fc5262e35a00b04f97220dde7e8d"
 }
