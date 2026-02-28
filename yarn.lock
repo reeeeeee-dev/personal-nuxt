@@ -6741,6 +6741,7 @@ __metadata:
     "@nuxtjs/tailwindcss": "npm:^6.14.0"
     nitro-cloudflare-dev: "npm:^0.2.2"
     nuxt: "npm:^4.3.1"
+    shaders: "npm:^2.3.75"
     vue: "npm:^3.5.28"
     vue-router: "npm:^4.6.4"
     wrangler: "npm:^4.69.0"
@@ -7762,6 +7763,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"shaders@npm:^2.3.75":
+  version: 2.3.75
+  resolution: "shaders@npm:2.3.75"
+  dependencies:
+    three: "npm:^0.183.0"
+  peerDependencies:
+    pixi.js: ^8.0.0
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+    solid-js: ^1.8.0
+    svelte: ^5
+    vue: ^3.0.0
+  peerDependenciesMeta:
+    pixi.js:
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+    solid-js:
+      optional: true
+    svelte:
+      optional: true
+    vue:
+      optional: true
+  checksum: 10c0/bf84d098188767b961f7918aac2267f4b14a806c7cadaf7ffefc96e6ee97d23db5db1e10dc0ef5e34f178e45f5c781028d55fa7129d110bfaa4736a1ec73b938
+  languageName: node
+  linkType: hard
+
 "sharp@npm:^0.34.5":
   version: 0.34.5
   resolution: "sharp@npm:0.34.5"
@@ -8342,6 +8372,13 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: 10c0/f375aeb2b05c100a456a30bc3ed07ef03a39cbdefe02e0403fb714b8c7e57eeaad1a2f5c4ecfb9ce554ce3db9c2b024eba144843cd9e344566d9fcee73b04767
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.183.0":
+  version: 0.183.2
+  resolution: "three@npm:0.183.2"
+  checksum: 10c0/dd42957a99f5ea3e6f907e17eaa3c99a931180bac24be68b8e0ff13674bc44314d3255839ec1802ad1251d9e508f542b8d26b2cc86a6b44ac9b06de34b37fdc7
   languageName: node
   linkType: hard
 
