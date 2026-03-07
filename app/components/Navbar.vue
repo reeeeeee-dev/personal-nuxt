@@ -37,13 +37,13 @@ function scheduleCloseAfterLeave() {
 
 <template>
   <nav
-    class="relative"
+    class="absolute top-0 left-0"
     @mouseleave="scheduleCloseAfterLeave"
     @mouseenter="clearCloseTimeout"
   >
     <button
       type="button"
-      class="flex items-center gap-3 px-8 py-4 text-(--cream) text-4xl font-medium bg-transparent border-0 cursor-pointer hover:opacity-80 transition-opacity"
+      class="flex items-center gap-3 px-8 py-4 text-(--red) text-4xl font-medium bg-transparent border-0 cursor-pointer hover:opacity-80 transition-opacity"
       :aria-expanded="open"
       aria-controls="nav-menu"
       aria-label="Toggle menu"
@@ -78,7 +78,7 @@ function scheduleCloseAfterLeave() {
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          class="group relative inline-block w-fit py-2 no-underline text-(--cream) text-4xl font-medium"
+          class="group relative inline-block w-fit py-2 no-underline text-(--red) text-4xl font-medium"
           active-class="nav-link--active"
         >
           <span class="relative">{{ link.label }}</span>
