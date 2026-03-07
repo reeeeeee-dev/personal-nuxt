@@ -8,7 +8,7 @@ defineProps<{
   <Transition name="site-load">
     <div
       v-show="!ready"
-      class="fixed inset-0 z-9999 flex items-center justify-center bg-white"
+      class="fixed inset-0 z-9999 flex items-center justify-center bg-(--ink)"
       aria-live="polite"
       aria-busy="true"
     >
@@ -23,7 +23,7 @@ defineProps<{
 <style>
 .site-load-enter-active,
 .site-load-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 700ms ease-in-out;
 }
 
 .site-load-leave-to {
