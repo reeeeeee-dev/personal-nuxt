@@ -19,8 +19,8 @@ onMounted(() => {
 
     <SiteLoading :ready="isAppReady" />
 
-    <Navbar />
-    <main>
+    <main class="overflow-hidden">
+      <Navbar />
       <NuxtPage />
     </main>
   </div>
