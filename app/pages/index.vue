@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+	unicornScene: true,
+});
+
 const HOME_SCENE_ID = "unicorn-home-scene";
 
 useUnicornScene(HOME_SCENE_ID, {
@@ -6,7 +10,9 @@ useUnicornScene(HOME_SCENE_ID, {
   scale: 1,
   dpi: 1.5,
   fps: 60,
-  lazyLoad: true,
+  // Full-bleed hero: must init while the shell loader is up. `true` defers until
+  // intersection, which races the loading overlay and feels late vs `addScene`.
+  lazyLoad: false,
   production: true,
 });
 </script>
