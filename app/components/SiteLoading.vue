@@ -10,7 +10,7 @@ defineProps<{
       v-show="!ready"
       class="fixed inset-0 z-9999 flex items-center justify-center bg-(--ink)"
       aria-live="polite"
-      aria-busy="true"
+      :aria-busy="!ready"
     >
       <div
         class="h-10 w-10 rounded-full border-2 border-gray-200 border-t-gray-800 animate-spin"

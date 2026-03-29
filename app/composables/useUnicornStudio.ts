@@ -83,11 +83,4 @@ export function ensureUnicornSdk(): Promise<UnicornStudioGlobal> {
 	return sdkPromise;
 }
 
-/** Start loading the SDK as early as the app mounts (client). */
-export function useUnicornStudioRoot() {
-	onMounted(() => {
-		void ensureUnicornSdk();
-	});
-}
-
 export type UnicornSceneOptions = Omit<UnicornAddSceneOptions, "elementId">;

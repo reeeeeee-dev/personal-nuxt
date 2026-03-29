@@ -1,13 +1,5 @@
 <script lang="ts" setup>
-const isAppReady = ref(false);
-
-useUnicornStudioRoot();
-
-onMounted(() => {
-	nextTick(() => {
-		isAppReady.value = true;
-	});
-});
+const { ready: isAppReady } = useSiteReady();
 </script>
 
 <template>
