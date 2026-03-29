@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const { ready: isAppReady } = useSiteReady();
+const { pageNavTransition } = usePageNavTransition();
 </script>
 
 <template>
@@ -15,29 +16,8 @@ const { ready: isAppReady } = useSiteReady();
 
     <main class="overflow-hidden">
       <Navbar />
-      <NuxtPage />
+      <NuxtPage :transition="pageNavTransition" />
     </main>
   </div>
 </template>
 
-<style>
-/* Page transition: site entry + route changes (Vue transition hooks) */
-.page-enter-active,
-.page-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
-}
-
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.page-enter-to,
-.page-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>

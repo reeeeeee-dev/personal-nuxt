@@ -14,10 +14,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()] as any,
   },
 
-  app: {
-    pageTransition: { name: "page", mode: "out-in" },
-  },
-
   nitro: {
     preset: "cloudflare_module",
 
