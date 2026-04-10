@@ -14,22 +14,40 @@ export function useUnicornScene(
 	options: UnicornSceneOptions,
 ) {
 	let scene: UnicornScene | null = null;
+	/** Pairs with `beginUnicornSceneLoad` even if we navigate away before the async mount work finishes. */
+	let loadSlotHeld = false;
+	let disposed = false;
+
+	function releaseLoadSlot() {
+		if (loadSlotHeld) {
+			endUnicornSceneLoad();
+			loadSlotHeld = false;
+		}
+	}
 
 	onMounted(async () => {
 		beginUnicornSceneLoad();
+		loadSlotHeld = true;
 		try {
 			const api = await ensureUnicornSdk();
-			scene = await api.addScene({ elementId, ...options });
-			await waitForUnicornSceneVisualReady(scene);
+			const s = await api.addScene({ elementId, ...options });
+			if (disposed) {
+				s.destroy();
+				return;
+			}
+			scene = s;
+			await waitForUnicornSceneVisualReady(s);
 		} catch {
 			// SDK or scene init failed; page can still render
 		} finally {
-			endUnicornSceneLoad();
+			releaseLoadSlot();
 		}
 	});
 
 	onBeforeUnmount(() => {
+		disposed = true;
 		scene?.destroy();
 		scene = null;
+		releaseLoadSlot();
 	});
 }
