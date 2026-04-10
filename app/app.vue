@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const { ready: isAppReady } = useSiteReady();
-const { pageNavTransition } = usePageNavTransition();
+const { pageNavTransition, pageNavTransitionLoading } =
+  usePageNavTransition();
 </script>
 
 <template>
@@ -14,6 +15,17 @@ const { pageNavTransition } = usePageNavTransition();
 
     <SiteLoading :ready="isAppReady" />
 
+    <Transition name="page-nav-load">
+      <div
+        v-show="pageNavTransitionLoading"
+        class="fixed inset-0 z-40 flex flex-col items-center justify-center bg-(--ink) px-6"
+        aria-live="polite"
+        :aria-busy="pageNavTransitionLoading"
+      >
+        <SkullLoader variant="on-ink" />
+      </div>
+    </Transition>
+
     <!-- Navbar outside <main> so main overflow-hidden never clips the menu -->
     <Navbar />
     <main class="min-h-screen overflow-hidden bg-(--cream)">
@@ -21,4 +33,16 @@ const { pageNavTransition } = usePageNavTransition();
     </main>
   </div>
 </template>
+
+<style>
+.page-nav-load-enter-active,
+.page-nav-load-leave-active {
+  transition: opacity 280ms ease-in-out;
+}
+
+.page-nav-load-enter-from,
+.page-nav-load-leave-to {
+  opacity: 0;
+}
+</style>
 

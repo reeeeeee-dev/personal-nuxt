@@ -3,6 +3,9 @@ import {
 	waitForUnicornScenes,
 } from "./useUnicornStudio";
 
+/** True while the outgoing page is gone and the incoming page is not yet visible. */
+export const pageNavTransitionLoading = ref(false);
+
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const DURATION_S = "0.35s";
 
@@ -31,6 +34,7 @@ function runLeave(el: HTMLElement, done: () => void) {
 		el.style.transform = "translateY(12px)";
 		window.setTimeout(() => {
 			el.style.transition = "";
+			pageNavTransitionLoading.value = true;
 			done();
 		}, 400);
 	});
@@ -59,7 +63,10 @@ export function usePageNavTransition() {
 					await waitForUnicornSceneRegistration(500);
 					await waitForUnicornScenes();
 				}
-				runEnterAfterReady(elHtml, done);
+				runEnterAfterReady(elHtml, () => {
+				pageNavTransitionLoading.value = false;
+				done();
+			});
 			})();
 		},
 		onLeave(el: Element, done: () => void) {
@@ -67,5 +74,5 @@ export function usePageNavTransition() {
 		},
 	};
 
-	return { pageNavTransition };
+	return { pageNavTransition, pageNavTransitionLoading };
 }
