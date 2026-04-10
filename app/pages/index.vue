@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
-	unicornScene: true,
+  unicornScene: true,
 });
 
 const HOME_SCENE_ID = "unicorn-home-scene";
@@ -20,7 +20,7 @@ useUnicornScene(HOME_SCENE_ID, {
 <template>
   <div
     :id="HOME_SCENE_ID"
-    class="absolute top-0 left-0 -z-10 h-screen w-screen min-h-[400px]"
+    class="absolute top-0 left-0 -z-10 h-screen w-screen"
     aria-hidden="true"
   />
 </template>

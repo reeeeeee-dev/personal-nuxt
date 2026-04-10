@@ -43,15 +43,11 @@ function scheduleCloseAfterLeave() {
   >
     <div
       class="inline-flex w-fit flex-col overflow-hidden border transition-colors duration-300"
-      :class="
-        open
-          ? 'border-(--ink)/20 bg-(--cream)'
-          : 'border-(--cream)/15 bg-(--ink)/85 backdrop-blur-md'
-      "
+      :class="open ? ' bg-(--cream)' : ' bg-(--ink)/85 backdrop-blur-md'"
     >
       <button
         type="button"
-        class="flex w-full cursor-pointer items-center gap-3 border-0 bg-transparent px-8 py-4 text-left text-4xl font-medium transition-opacity hover:opacity-90"
+        class="flex w-full cursor-pointer items-center gap-3 border-0 bg-transparent px-8 py-4 text-left text-4xl font-medium transition-opacity hover:text-(--red)"
         :class="open ? 'text-(--ink)' : 'text-(--cream)'"
         :aria-expanded="open"
         aria-controls="nav-menu"
@@ -59,7 +55,10 @@ function scheduleCloseAfterLeave() {
         @click="toggle"
       >
         <span class="tracking-widest">MENU</span>
-        <span class="relative inline-block h-[1em] w-[1em] shrink-0" aria-hidden>
+        <span
+          class="relative inline-block h-[1em] w-[1em] shrink-0"
+          aria-hidden
+        >
           <span
             class="absolute left-0 top-1/2 w-full h-1 -translate-y-1/2 bg-current transition duration-300 ease-out"
           />
