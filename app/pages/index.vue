@@ -20,7 +20,7 @@ useUnicornScene(HOME_SCENE_ID, {
 <template>
   <div
     :id="HOME_SCENE_ID"
-    class="absolute top-0 left-0 -z-10 h-screen w-screen"
+    class="absolute top-0 left-0 -z-10 h-screen w-screen overflow-hidden"
     aria-hidden="true"
   />
 </template>
