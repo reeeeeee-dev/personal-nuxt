@@ -37,7 +37,7 @@ function scheduleCloseAfterLeave() {
 
 <template>
   <nav
-    class="absolute top-0 left-0"
+    class="absolute top-0 left-0 z-50"
     @mouseleave="scheduleCloseAfterLeave"
     @mouseenter="clearCloseTimeout"
   >
