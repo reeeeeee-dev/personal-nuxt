@@ -17,6 +17,18 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: "puracoco",
+    tocLabel: "Official Pura Coco",
+    title: "Official Pura Coco",
+    stack: ["Typescript", "Vue", "NuxtJS", "Tailwind", "Cloudflare"],
+    image: {
+      src: "/img/puracoco.gif",
+      alt: "Pura Coco website preview",
+      class:
+        "h-full max-h-[36rem] w-full max-w-2xl object-contain bg-white sm:max-h-[44rem]",
+    },
+  },
+  {
     id: "allavservices",
     tocLabel: "All AV Services",
     title: "All AV Services",
@@ -150,6 +162,27 @@ const projects: Project[] = [
                 </p>
               </template>
 
+              <template v-else-if="p.id === 'puracoco'">
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  Pura Coco is rapidly growing musician in Northwest Arkansas. I
+                  met Pura Coco through a mutual friend. Her previous website
+                  was expensive and clunky. It also linked to an external site
+                  for concert information. I designed and built the site using
+                  NuxtJS and Tailwind, then deployed it to a Cloudflare Worker.
+                  It's integrated with the BandsInTown API to dynamically
+                  generate pages for upcoming concerts. Visit her at
+                  <a
+                    href="https://officialpuracoco.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    >officialpuracoco.com</a
+                  >.
+                </p>
+              </template>
+
               <template v-else-if="p.id === 'drycleansupercenter'">
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
@@ -174,22 +207,22 @@ const projects: Project[] = [
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
                 >
-                  This was one of my first forays in native Android
-                  development. Resplash is always one of the first apps I
-                  download when I get a new phone. It has an autowallpaper
-                  feature that updates the wallpaper on my phone on a set
-                  interval. I also occasioanlly find myself scrolling Unsplash so
-                  having a mobile client was useful.
+                  This was one of my first forays in native Android development.
+                  Resplash is always one of the first apps I download when I get
+                  a new phone. It has an autowallpaper feature that updates the
+                  wallpaper on my phone on a set interval. I also occasioanlly
+                  find myself scrolling Unsplash so having a mobile client was
+                  useful.
                 </p>
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
                 >
-                  I wanted the push notification to be persistent so it
-                  wouldn't disappear when I instinctively cleared all
-                  notifications. It was a shortcut for more details about the
-                  current wallpaper. Seeing the app was open source and
-                  available on GitHub, I decided to go ahead and take a crack at
-                  it. With some help from
+                  I wanted the push notification to be persistent so it wouldn't
+                  disappear when I instinctively cleared all notifications. It
+                  was a shortcut for more details about the current wallpaper.
+                  Seeing the app was open source and available on GitHub, I
+                  decided to go ahead and take a crack at it. With some help
+                  from
                   <a
                     href="https://b-lam.github.io/"
                     target="_blank"
@@ -227,8 +260,8 @@ const projects: Project[] = [
                   in 2006, the house contained coaxial, Cat5e ethernet, and
                   alarm wiring. I started in the garage setting up my servers.
                   The network and security camera's ran on Ubiquiti's Unifi line
-                  of products. The main server was an old Dell C2100 I bought off
-                  a friend for $100. Over time I upgraded the RAM, CPUs, and
+                  of products. The main server was an old Dell C2100 I bought
+                  off a friend for $100. Over time I upgraded the RAM, CPUs, and
                   added a total of 50TB of storage. The server ran everything
                   from a simple DDNS client, game servers, to multiple virtual
                   machines alongside archival storage for my family. Throughout
