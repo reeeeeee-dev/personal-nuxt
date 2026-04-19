@@ -116,13 +116,14 @@ const projects: Project[] = [
 
       <div class="mt-16 flex flex-col gap-20 md:mt-20 md:gap-24">
         <section
-          v-for="p in projects"
+          v-for="(p, i) in projects"
           :id="p.id"
           :key="p.id"
           class="scroll-mt-8"
         >
           <div
-            class="flex flex-col gap-8 lg:flex-row-reverse lg:items-start lg:gap-12 xl:gap-16"
+            class="flex flex-col gap-8 lg:items-start lg:gap-12 xl:gap-16"
+            :class="i % 2 === 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'"
           >
             <div class="min-w-0 flex-1">
               <h2 class="text-2xl font-medium md:text-3xl">{{ p.title }}</h2>
