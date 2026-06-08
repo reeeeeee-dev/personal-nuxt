@@ -11,8 +11,7 @@ const links = [
 
 const githubUrl = "https://github.com/reeeeeee-dev";
 const linkedinUrl = "https://linkedin.com/in/reetik";
-// /** Set when you have a profile URL */
-// const instagramUrl: string | null = null;
+const instagramUrl = 'https://instagram.com/reetik_photography';
 
 function clearCloseTimeout() {
   if (closeTimeout !== null) {
@@ -139,7 +138,6 @@ function scheduleCloseAfterLeave() {
                   />
                 </svg>
               </a>
-              <!-- Instagram
               <component
                 :is="instagramUrl ? 'a' : 'span'"
                 :href="instagramUrl ?? undefined"
@@ -176,7 +174,7 @@ function scheduleCloseAfterLeave() {
                   <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                 </svg>
               </component>
-              -->
+             
             </div>
           </div>
         </div>
