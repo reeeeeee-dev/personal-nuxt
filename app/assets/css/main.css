@@ -1,14 +1,32 @@
 @import "tailwindcss";
 
+/*
+ * Type system — Fraunces × Manrope.
+ *
+ * Fraunces (display) is a variable serif with opsz, soft, wght, and italic axes;
+ * its optical-size axis warms the hero headline at large sizes while smaller
+ * heads stay refined, mirroring the gilded mandala / hand-drawn-meets-engineering
+ * brand. Manrope (sans) is a humanist geometric companion — modern but warm —
+ * that holds the body and UI without the AI-default flatness of Inter.
+ */
+
 @theme {
-  --sage: #8f9b82;
-  --ink: #151514;
-  --cream: #ceb9a1;
-  --red: #d0253e;
-  --orange: #fba337;
+	--sage: #8f9b82;
+	--ink: #151514;
+	--cream: #ceb9a1;
+	--red: #d0253e;
+	--orange: #fba337;
+
+	--font-sans:
+		"Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+	--font-display:
+		"Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 html,
 body {
-  overscroll-behavior: none;
+	overscroll-behavior: none;
+	font-family: var(--font-sans);
+	font-feature-settings: "ss01", "cv11";
 }

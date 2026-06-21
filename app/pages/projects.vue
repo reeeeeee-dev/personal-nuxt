@@ -86,26 +86,6 @@ const projects: Project[] = [
         "h-full max-h-[36rem] w-full max-w-2xl object-contain bg-white sm:max-h-[44rem]",
     },
   },
-  {
-    id: "43south",
-    tocLabel: "43 South Smart Home & Servers",
-    title: "43 South",
-    stack: [
-      "Small Electronics",
-      "Home Assistant",
-      "Shelly",
-      "Unraid",
-      "Server Management",
-      "IoT",
-      "Ubiquiti",
-    ],
-    image: {
-      src: "/img/43south.jpg",
-      alt: "43 South smart home setup",
-      class:
-        "h-full max-h-[40rem] w-full max-w-2xl object-cover sm:max-h-[48rem]",
-    },
-  },
 ];
 </script>
 
@@ -114,7 +94,9 @@ const projects: Project[] = [
     class="min-h-screen bg-(--ink) px-8 py-16 text-(--cream) md:px-12 md:py-24"
   >
     <article class="mx-auto max-w-6xl">
-      <h1 class="text-4xl font-medium tracking-tight md:text-5xl">
+      <h1
+        class="font-display text-4xl font-medium leading-[1.05] tracking-[-0.02em] md:text-6xl"
+      >
         Projects, Presentations, and Contracts
       </h1>
 
@@ -123,7 +105,7 @@ const projects: Project[] = [
         aria-label="On this page"
       >
         <ul
-          class="flex flex-col gap-2 text-xl font-medium md:text-2xl list-disc"
+          class="font-display flex list-disc flex-col gap-2 pl-5 text-xl font-normal italic md:text-2xl"
         >
           <li v-for="p in projects" :key="p.id">
             <a
@@ -148,7 +130,11 @@ const projects: Project[] = [
             :class="i % 2 === 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'"
           >
             <div class="min-w-0 flex-1">
-              <h2 class="text-2xl font-medium md:text-3xl">{{ p.title }}</h2>
+              <h2
+                class="font-display text-3xl font-medium leading-[1.05] tracking-[-0.015em] md:text-4xl"
+              >
+                {{ p.title }}
+              </h2>
               <ul
                 class="mt-6 flex flex-wrap gap-2"
                 :aria-label="`Technologies for ${p.title}`"
@@ -156,7 +142,7 @@ const projects: Project[] = [
                 <li
                   v-for="tech in p.stack"
                   :key="tech"
-                  class="rounded-full border border-(--cream)/25 px-3 py-1 text-xs font-medium tracking-wide text-(--cream)/85 uppercase md:text-sm"
+                  class="font-sans rounded-full border border-(--cream)/25 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-(--cream)/85 md:text-xs"
                 >
                   {{ tech }}
                 </li>
@@ -295,27 +281,7 @@ const projects: Project[] = [
                 </p>
               </template>
 
-              <template v-else-if="p.id === '43south'">
-                <p
-                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
-                >
-                  43 South is my parent's new house. When moving into this
-                  house, I wasn't swayed much by the size, neighborhood, or
-                  anything. The one thing that caught me was the wiring. Built
-                  in 2006, the house contained coaxial, Cat5e ethernet, and
-                  alarm wiring. I started in the garage setting up my servers.
-                  The network and security camera's ran on Ubiquiti's Unifi line
-                  of products. The main server was an old Dell C2100 I bought
-                  off a friend for $100. Over time I upgraded the RAM, CPUs, and
-                  added a total of 50TB of storage. The server ran everything
-                  from a simple DDNS client, game servers, to multiple virtual
-                  machines alongside archival storage for my family. Throughout
-                  the house, I installed Unifi access points and cameras, Shelly
-                  smart relays, and other sensors to automate different things.
-                  Among them were the garage door, syncing outdoor lighting to
-                  the solar cycle, and improving network coverage.
-                </p>
-              </template>
+
             </div>
 
             <div
@@ -361,5 +327,6 @@ const projects: Project[] = [
         </section>
       </div>
     </article>
+    <SiteFooter />
   </div>
 </template>

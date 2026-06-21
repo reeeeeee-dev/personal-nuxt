@@ -27,7 +27,9 @@ const { pageNavTransition, pageNavTransitionLoading } =
     </Transition>
 
     <!-- Navbar outside <main> so main overflow-hidden never clips the menu -->
-    <Navbar />
+    <ClientOnly>
+      <Navbar v-if="isAppReady" />
+    </ClientOnly>
     <main class="min-h-screen overflow-hidden bg-(--cream)">
       <NuxtPage :transition="pageNavTransition" />
     </main>

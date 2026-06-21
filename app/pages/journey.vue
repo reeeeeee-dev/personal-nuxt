@@ -115,7 +115,9 @@ const roles: Role[] = [
     class="min-h-screen bg-(--ink) px-8 py-16 text-(--cream) md:px-12 md:py-24"
   >
     <article class="mx-auto max-w-6xl">
-      <h1 class="text-4xl font-medium tracking-tight md:text-5xl">
+      <h1
+        class="font-display text-4xl font-medium leading-[1.05] tracking-[-0.02em] md:text-6xl"
+      >
         My Journey
       </h1>
 
@@ -124,7 +126,7 @@ const roles: Role[] = [
         aria-label="On this page"
       >
         <ul
-          class="flex flex-col gap-2 text-xl font-medium md:text-2xl list-disc"
+          class="font-display flex list-disc flex-col gap-2 pl-5 text-xl font-normal italic md:text-2xl"
         >
           <li v-for="role in roles" :key="role.id">
             <a
@@ -149,7 +151,11 @@ const roles: Role[] = [
             :class="i % 2 === 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'"
           >
             <div class="min-w-0 flex-1">
-              <h2 class="text-2xl font-medium md:text-3xl">{{ role.title }}</h2>
+              <h2
+                class="font-display text-3xl font-medium leading-[1.05] tracking-[-0.015em] md:text-4xl"
+              >
+                {{ role.title }}
+              </h2>
               <ul
                 class="mt-6 flex flex-wrap gap-2"
                 :aria-label="`Technologies at ${role.title}`"
@@ -157,7 +163,7 @@ const roles: Role[] = [
                 <li
                   v-for="tech in role.stack"
                   :key="tech"
-                  class="rounded-full border border-(--cream)/25 px-3 py-1 text-xs font-medium tracking-wide text-(--cream)/85 uppercase md:text-sm"
+                  class="font-sans rounded-full border border-(--cream)/25 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-(--cream)/85 md:text-xs"
                 >
                   {{ tech }}
                 </li>
@@ -196,5 +202,6 @@ const roles: Role[] = [
         </section>
       </div>
     </article>
+    <SiteFooter />
   </div>
 </template>

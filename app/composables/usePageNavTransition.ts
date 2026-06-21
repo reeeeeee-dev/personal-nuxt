@@ -1,8 +1,3 @@
-import {
-	waitForUnicornSceneRegistration,
-	waitForUnicornScenes,
-} from "./useUnicornStudio";
-
 /** True while the outgoing page is gone and the incoming page is not yet visible. */
 export const pageNavTransitionLoading = ref(false);
 
@@ -41,11 +36,10 @@ function runLeave(el: HTMLElement, done: () => void) {
 }
 
 /**
- * `css: false` so we can await Unicorn/WebGL before fading the incoming page in.
+ * `css: false` so we drive opacity/transform manually and keep the loading flag
+ * in sync with the incoming page's mount.
  */
 export function usePageNavTransition() {
-	const route = useRoute();
-
 	const pageNavTransition = {
 		name: "page-nav",
 		mode: "out-in" as const,
@@ -59,14 +53,10 @@ export function usePageNavTransition() {
 			const elHtml = el as HTMLElement;
 			void (async () => {
 				await nextTick();
-				if ((route.meta as { unicornScene?: boolean }).unicornScene) {
-					await waitForUnicornSceneRegistration(500);
-					await waitForUnicornScenes();
-				}
 				runEnterAfterReady(elHtml, () => {
-				pageNavTransitionLoading.value = false;
-				done();
-			});
+					pageNavTransitionLoading.value = false;
+					done();
+				});
 			})();
 		},
 		onLeave(el: Element, done: () => void) {
