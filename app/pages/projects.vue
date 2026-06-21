@@ -13,9 +13,31 @@ type Project = {
     alt: string;
     class: string;
   };
+  video?: {
+    sources: { src: string; type: string }[];
+    poster?: string;
+  };
 };
 
 const projects: Project[] = [
+  {
+    id: "waypave",
+    tocLabel: "WayPave",
+    title: "WayPave",
+    stack: ["Vite", "Handlebars", "Tailwind", "Firebase"],
+    image: {
+      src: "/img/waypave.mp4",
+      alt: "WayPave marketing site preview",
+      class:
+        "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]",
+    },
+    video: {
+      sources: [
+        { src: "/img/waypave.webm", type: "video/webm" },
+        { src: "/img/waypave.mp4", type: "video/mp4" },
+      ],
+    },
+  },
   {
     id: "puracoco",
     tocLabel: "Official Pura Coco",
@@ -140,7 +162,29 @@ const projects: Project[] = [
                 </li>
               </ul>
 
-              <template v-if="p.id === 'allavservices'">
+              <template v-if="p.id === 'waypave'">
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  Ben Cline, an old coworker from Walmart, reached out. He's
+                  now the CTO of WayPave. WayPave is a Northwest Arkansas
+                  startup helping frontline workers find local jobs. My first
+                  project was to refresh their marketing site. The site already
+                  ran on Vite, Handlebars, and Tailwind, shipped to Firebase
+                  Hosting. I modernized the design on top of that
+                  foundation. I leaned on Oh My OpenAgent and Cursor to move
+                  fast. Visit them at
+                  <a
+                    href="https://waypave.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    >waypave.com</a
+                  >.
+                </p>
+              </template>
+
+              <template v-else-if="p.id === 'allavservices'">
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
                 >
@@ -278,8 +322,30 @@ const projects: Project[] = [
               class="flex w-full shrink-0 justify-center lg:w-[32rem] lg:max-w-[55%] lg:justify-end"
             >
               <div class="flex w-full max-w-2xl justify-center lg:max-w-none">
+                <video
+                  v-if="p.video"
+                  :class="[
+                    p.image.class,
+                    'shrink-0 rounded-sm border border-(--cream)/10',
+                  ]"
+                  :aria-label="p.image.alt"
+                  :poster="p.video.poster"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                >
+                  <source
+                    v-for="s in p.video.sources"
+                    :key="s.src"
+                    :src="s.src"
+                    :type="s.type"
+                  />
+                </video>
                 <!-- biome-ignore lint/a11y/useAltText: alt comes from each Project.image -->
                 <img
+                  v-else
                   :src="p.image.src"
                   :alt="p.image.alt"
                   :class="[
