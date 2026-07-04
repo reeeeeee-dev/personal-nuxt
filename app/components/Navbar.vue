@@ -3,6 +3,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/journey", label: "Journey" },
   { to: "/projects", label: "Projects" },
+  { to: "/about", label: "About" },
 ];
 
 const githubUrl = "https://github.com/reeeeeee-dev";

@@ -18,6 +18,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/journey", label: "Journey" },
   { to: "/projects", label: "Projects" },
+  { to: "/about", label: "About" },
 ];
 
 const githubUrl = "https://github.com/reeeeeee-dev";
@@ -62,7 +63,7 @@ function scrollToTop() {
           <p
             class="font-sans text-[10px] font-light uppercase tracking-[0.45em] text-(--cream)/60 md:text-xs"
           >
-            Designer · Engineer
+            Artist · Engineer
           </p>
         </div>
 
@@ -133,6 +134,41 @@ function scrollToTop() {
             </li>
           </ul>
         </nav>
+
+        <!-- Contact -->
+        <div>
+          <p
+            class="font-sans text-[10px] font-light uppercase tracking-[0.45em] text-(--cream)/50 md:text-xs"
+          >
+            Contact
+          </p>
+          <ul class="mt-4 flex flex-col gap-3">
+            <li>
+              <a
+                href="mailto:reetikp@gmail.com"
+                class="group relative inline-block font-sans text-sm font-light text-(--cream)/85 no-underline transition-colors duration-200 hover:text-(--cream) md:text-base"
+              >
+                <span class="relative">reetikp@gmail.com</span>
+                <span
+                  class="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="tel:+14793851212"
+                class="group relative inline-block font-sans text-sm font-light text-(--cream)/85 no-underline transition-colors duration-200 hover:text-(--cream) md:text-base"
+              >
+                <span class="relative">(479) 385-1212</span>
+                <span
+                  class="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
         <!-- Elsewhere -->
         <div>
