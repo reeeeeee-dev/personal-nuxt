@@ -17,6 +17,16 @@
 	--red: #d0253e;
 	--orange: #fba337;
 
+	/*
+	 * Light palette - seigaiha landing.
+	 * --paper: warm off-white, the base of the landing.
+	 * --mist:  slightly cooler tint for the wave fills.
+	 * --wave-ink: muted indigo-sage used for the wave linework.
+	 */
+	--paper: #f4ece0;
+	--mist: #e7dccb;
+	--wave-ink: #7a8a82;
+
 	--font-sans:
 		"Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 		"Helvetica Neue", Arial, sans-serif;

@@ -5,7 +5,7 @@
 //
 // Contents (left → right on desktop, stacked on mobile):
 //   1. "Reetik Patel" wordmark (display serif) - clickable, links to home
-//   2. Site nav links (Home / Journey / Projects / Art / Resume)
+//   2. Site nav links (Home / Journey / Projects / Resume)
 //   3. Social row (GitHub, LinkedIn, Instagram, Buy Me a Coffee)
 //   4. Back-to-top button (anchored right on desktop, full-width on mobile)
 //   5. Bottom row: © year + tagline
@@ -18,7 +18,6 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/journey", label: "Journey" },
   { to: "/projects", label: "Projects" },
-  { to: "/art", label: "Art" },
 ];
 
 const githubUrl = "https://github.com/reeeeeee-dev";

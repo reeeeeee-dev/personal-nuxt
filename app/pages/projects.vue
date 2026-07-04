@@ -21,6 +21,27 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: "this-site",
+    tocLabel: "This Site",
+    title: "This Site",
+    stack: [
+      "Typescript",
+      "Vue",
+      "Nuxt 4",
+      "Tailwind v4",
+      "Three.js",
+      "GLSL Shaders",
+      "Cloudflare Workers",
+      "Oh My OpenAgent",
+    ],
+    image: {
+      src: "/img/personal-nuxt.png",
+      alt: "Reetik Patel personal site preview",
+      class:
+        "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]",
+    },
+  },
+  {
     id: "waypave",
     tocLabel: "WayPave",
     title: "WayPave",
@@ -231,6 +252,84 @@ const projects: Project[] = [
                     class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
                     >drycleansupercenter.com</a
                   >.
+                </p>
+              </template>
+
+              <template v-else-if="p.id === 'this-site'">
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  The site you&rsquo;re reading right now. Built on Nuxt 4 with
+                  Vue 3, styled with Tailwind v4, deployed to a Cloudflare
+                  Worker via Wrangler. Type lives in Fraunces and Manrope,
+                  served through
+                  <code
+                    class="font-sans rounded-sm bg-(--cream)/10 px-1.5 py-0.5 text-[0.85em] text-(--cream)"
+                    >@nuxt/fonts</code
+                  >. Biome handles formatting and lint.
+                </p>
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  The landing is a Three.js scene layered under a tiling
+                  seigaiha (&#x9752;&#x6d77;&#x6ce2;) wave pattern. Twenty-eight
+                  gold ribbon meshes are triangulated from B&eacute;zier
+                  centerlines and animated in a custom GLSL vertex shader
+                  &mdash; each ribbon carries its own phase and frequency so
+                  the flame flicker at the tips never syncs. A rock-sparkle
+                  layer of ~400 additive points twinkles independently across
+                  the viewport in pale gold, champagne, and ice-blue mineral
+                  flecks.
+                </p>
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  Most of the implementation was paired with
+                  <a
+                    href="https://github.com/ohmyopenagent"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    >Oh My OpenAgent</a
+                  >
+                  &mdash; an orchestration layer over Claude that I lean on for
+                  parallel exploration, planning, and visual QA against a real
+                  browser. The agent did the typing; I did the taste.
+                </p>
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  The brushwork references
+                  <a
+                    href="https://www.albionjeune.com/exhibitions/23-afterstone-su-yu-xin/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    >Afterstone</a
+                  >, Su Yu-Xin&rsquo;s 2026 series of paintings ground from
+                  real minerals &mdash; sulphur, realgar, orpiment, lapis
+                  lazuli, charcoal, purple slate. The specific work is
+                  Waddling Parade (Coal-seam fires, Utah). I caught the exhibit
+                  at Lo Studio in Venice during a study abroad trip. The mix of
+                  geological patience and swirling, almost-tectonic motion
+                  stuck with me, and the gold here is my translation of that
+                  brushwork onto a Japanese wave field I&rsquo;ve always loved.
+                </p>
+                <p class="mt-6">
+                  <a
+                    href="https://github.com/reeeeeee-dev/personal-nuxt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block transition-opacity hover:opacity-80"
+                  >
+                    <img
+                      src="/img/github.svg"
+                      alt="personal-nuxt on GitHub"
+                      class="h-8 w-8"
+                      width="32"
+                      height="32"
+                    />
+                  </a>
                 </p>
               </template>
 
