@@ -332,41 +332,6 @@ const ribbonFragmentShader = /* glsl */ `
   }
 `;
 
-const emberVertexShader = /* glsl */ `
-  uniform float uTime;
-  attribute float aSeed;
-  attribute float aSpeed;
-  attribute float aSize;
-  varying float vSeed;
-  varying float vLifeFrac;
-
-  void main() {
-    float life = mod(uTime * aSpeed * 0.00006 + aSeed, 1.0);
-    float x = position.x + sin(uTime * 0.0004 * aSpeed + aSeed * 6.28) * 60.0;
-    float y = position.y - life * 900.0 + 500.0;
-    vec4 mvPos = modelViewMatrix * vec4(x, y, 0.0, 1.0);
-    gl_Position = projectionMatrix * mvPos;
-    gl_PointSize = aSize * (1.0 - life * 0.5);
-    vSeed = aSeed;
-    vLifeFrac = life;
-  }
-`;
-
-const emberFragmentShader = /* glsl */ `
-  precision highp float;
-  uniform vec3 uColor;
-  varying float vSeed;
-  varying float vLifeFrac;
-
-  void main() {
-    vec2 uv = gl_PointCoord - 0.5;
-    float r = length(uv);
-    if (r > 0.5) discard;
-    float alpha = smoothstep(0.5, 0.0, r) * (1.0 - vLifeFrac) * 0.65;
-    gl_FragColor = vec4(uColor, alpha);
-  }
-`;
-
 const sparkleVertexShader = /* glsl */ `
   uniform float uTime;
   attribute float aPhase;
@@ -426,7 +391,6 @@ let camera: OrthographicCamera | null = null;
 let ribbonRuntimes: RibbonRuntime[] = [];
 let ribbonMaterials: ShaderMaterial[] = [];
 let sparkleMaterial: ShaderMaterial | null = null;
-let emberMaterial: ShaderMaterial | null = null;
 let rafId = 0;
 let resizeObserver: ResizeObserver | null = null;
 let startedAt = 0;
@@ -552,32 +516,10 @@ function tick(now: number) {
     r.material.uniforms.uCursorInfluence.value = r.currentInfluence;
     if (contactU >= 0) r.material.uniforms.uContactU.value = contactU;
   }
-  if (emberMaterial) emberMaterial.uniforms.uTime.value = elapsed;
   if (sparkleMaterial) sparkleMaterial.uniforms.uTime.value = elapsed;
 
   renderer.render(scene, camera);
   rafId = requestAnimationFrame(tick);
-}
-
-function buildEmberGeometry(count: number): BufferGeometry {
-  const positions = new Float32Array(count * 3);
-  const seeds = new Float32Array(count);
-  const speeds = new Float32Array(count);
-  const sizes = new Float32Array(count);
-  for (let i = 0; i < count; i++) {
-    positions[i * 3 + 0] = (Math.random() - 0.5) * VIEW_W * 0.95;
-    positions[i * 3 + 1] = -VIEW_H * 0.5 + Math.random() * VIEW_H;
-    positions[i * 3 + 2] = 0;
-    seeds[i] = Math.random();
-    speeds[i] = 0.6 + Math.random() * 1.4;
-    sizes[i] = 2 + Math.random() * 5;
-  }
-  const g = new BufferGeometry();
-  g.setAttribute("position", new BufferAttribute(positions, 3));
-  g.setAttribute("aSeed", new BufferAttribute(seeds, 1));
-  g.setAttribute("aSpeed", new BufferAttribute(speeds, 1));
-  g.setAttribute("aSize", new BufferAttribute(sizes, 1));
-  return g;
 }
 
 /*
@@ -738,22 +680,6 @@ onMounted(() => {
     scene.add(mesh);
   }
 
-  const emberGeom = buildEmberGeometry(180);
-  emberMaterial = new ShaderMaterial({
-    uniforms: {
-      uTime: { value: 0 },
-      uColor: { value: new Color("#D4AF37") },
-    },
-    vertexShader: emberVertexShader,
-    fragmentShader: emberFragmentShader,
-    transparent: true,
-    depthWrite: false,
-    blending: AdditiveBlending,
-  });
-  const embers = new Points(emberGeom, emberMaterial);
-  embers.renderOrder = 999;
-  scene.add(embers);
-
   const sparkleGeom = buildSparkleGeometry(420);
   sparkleMaterial = new ShaderMaterial({
     uniforms: {
@@ -800,7 +726,6 @@ onBeforeUnmount(() => {
     m.material?.dispose?.();
   });
   for (const mat of ribbonMaterials) mat.dispose();
-  emberMaterial?.dispose();
   sparkleMaterial?.dispose();
   renderer?.dispose();
   renderer = null;
@@ -808,7 +733,6 @@ onBeforeUnmount(() => {
   camera = null;
   ribbonMaterials = [];
   ribbonRuntimes = [];
-  emberMaterial = null;
   sparkleMaterial = null;
   hasCursor = false;
   cursorVelX = 0;
