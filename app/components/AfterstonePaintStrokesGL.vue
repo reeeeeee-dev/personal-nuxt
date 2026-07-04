@@ -438,7 +438,6 @@ let cursorVelX = 0;
 let cursorVelY = 0;
 let hasCursor = false;
 let reducedMotion = false;
-let coarsePointer = false;
 
 const CURSOR_INFLUENCE_RADIUS = 360;
 const CURSOR_SMOOTH = 0.12;
@@ -456,7 +455,7 @@ function syncSize() {
 }
 
 function handlePointerMove(e: PointerEvent) {
-  if (reducedMotion || coarsePointer || !canvas.value) return;
+  if (reducedMotion || !canvas.value) return;
   const rect = canvas.value.getBoundingClientRect();
   const nx = (e.clientX - rect.left) / rect.width;
   const ny = (e.clientY - rect.top) / rect.height;
@@ -467,6 +466,25 @@ function handlePointerMove(e: PointerEvent) {
     prevCursorWorldY = cursorWorldY;
     hasCursor = true;
   }
+}
+
+// Touch re-taps produce a huge coordinate delta from the last known position
+// (finger lifted, moved, and touched down again far away). Without resetting
+// prevCursorWorld on touch-start, that delta gets read as an enormous velocity
+// spike and every ribbon on screen would fold at once. Anchor prev to the new
+// contact point so velocity starts from zero on each fresh touch.
+function handlePointerDown(e: PointerEvent) {
+  if (reducedMotion || !canvas.value) return;
+  const rect = canvas.value.getBoundingClientRect();
+  const nx = (e.clientX - rect.left) / rect.width;
+  const ny = (e.clientY - rect.top) / rect.height;
+  cursorWorldX = (nx - 0.5) * VIEW_W;
+  cursorWorldY = -(ny - 0.5) * VIEW_H;
+  prevCursorWorldX = cursorWorldX;
+  prevCursorWorldY = cursorWorldY;
+  cursorVelX = 0;
+  cursorVelY = 0;
+  hasCursor = true;
 }
 
 function tick(now: number) {
@@ -614,7 +632,6 @@ function buildSparkleGeometry(count: number): BufferGeometry {
 onMounted(() => {
   if (!canvas.value) return;
   reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
   renderer = new WebGLRenderer({
     canvas: canvas.value,
@@ -762,8 +779,9 @@ onMounted(() => {
     window.addEventListener("resize", syncSize);
   }
 
-  if (!reducedMotion && !coarsePointer) {
+  if (!reducedMotion) {
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
   }
 
   rafId = requestAnimationFrame(tick);
@@ -774,6 +792,7 @@ onBeforeUnmount(() => {
   resizeObserver?.disconnect();
   window.removeEventListener("resize", syncSize);
   window.removeEventListener("pointermove", handlePointerMove);
+  window.removeEventListener("pointerdown", handlePointerDown);
   scene?.traverse((obj) => {
     // biome-ignore lint/suspicious/noExplicitAny: Three.js mesh geometry/material types
     const m = obj as any;

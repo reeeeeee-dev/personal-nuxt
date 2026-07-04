@@ -2,6 +2,14 @@
 definePageMeta({
   noScroll: true,
 });
+
+// Lock html + body scroll while the landing is mounted. useHead cleans up
+// automatically on route change so interior pages remain scrollable. 100dvh
+// respects mobile viewport chrome (URL bar retract/extend) unlike 100vh.
+useHead({
+  htmlAttrs: { class: "landing-no-scroll" },
+  bodyAttrs: { class: "landing-no-scroll" },
+});
 </script>
 
 <template>

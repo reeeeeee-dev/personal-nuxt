@@ -57,27 +57,31 @@ onBeforeUnmount(() => {
       <!-- Mobile MENU button (visible < md) -->
       <button
         type="button"
-        class="font-sans inline-flex items-center gap-2 border-0 bg-transparent p-0 font-light text-[10px] uppercase tracking-[0.45em] text-(--cream)/75 transition-colors duration-200 hover:text-(--cream) md:hidden"
-        style="text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7)"
+        class="font-sans -m-2 inline-flex cursor-pointer items-center gap-2.5 rounded-sm border-0 bg-transparent p-2 font-medium text-xs uppercase tracking-[0.35em] text-(--cream) transition-colors duration-200 hover:text-(--cream) md:hidden"
+        style="text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85)"
         :aria-expanded="open"
         aria-controls="primary-nav-panel"
         aria-label="Toggle menu"
         @click="toggle"
       >
-        <span>Menu</span>
         <span
-          class="relative inline-block h-3 w-3 shrink-0"
+          class="relative inline-block h-[14px] w-5 shrink-0"
           aria-hidden="true"
         >
           <span
-            class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current transition-transform duration-300 ease-out"
-            :class="{ 'rotate-45': open }"
+            class="absolute left-0 h-0.5 w-full bg-current transition-all duration-300 ease-out"
+            :class="open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0'"
           ></span>
           <span
-            class="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-current transition-transform duration-300 ease-out"
-            :class="{ '-rotate-45': open }"
+            class="absolute left-0 top-1/2 h-0.5 w-full -translate-y-1/2 bg-current transition-opacity duration-300 ease-out"
+            :class="{ 'opacity-0': open }"
+          ></span>
+          <span
+            class="absolute left-0 h-0.5 w-full bg-current transition-all duration-300 ease-out"
+            :class="open ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0'"
           ></span>
         </span>
+        <span>{{ open ? "Close" : "Menu" }}</span>
       </button>
 
       <!-- Desktop nav links (visible md+) -->
