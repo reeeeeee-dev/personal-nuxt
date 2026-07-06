@@ -12,7 +12,7 @@ defineProps<{
       aria-live="polite"
       :aria-busy="!ready"
     >
-      <SkullLoader variant="on-ink" />
+      <SeigaihaLoader variant="on-ink" />
     </div>
   </Transition>
 </template>

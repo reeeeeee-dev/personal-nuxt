@@ -26,7 +26,7 @@ const {
       aria-live="polite"
       :aria-busy="pageNavTransitionLoading"
     >
-      <SkullLoader variant="on-ink" />
+      <SeigaihaLoader variant="on-ink" />
     </div>
 
     <!-- Navbar outside <main> so main overflow-hidden never clips the menu -->
