@@ -49,7 +49,7 @@ defineProps<{
 }
 
 .site-load-leave-active {
-  transition: --wipe 900ms cubic-bezier(0.7, 0, 0.3, 1);
+  transition: --wipe 1080ms cubic-bezier(0.7, 0, 0.3, 1);
 }
 
 .site-load-leave-from {

@@ -65,7 +65,7 @@ const {
     calc(50% - var(--wipe)) calc(50% + var(--wipe)),
     calc(50% - var(--wipe)) calc(50% - var(--wipe))
   );
-  transition: --wipe 450ms cubic-bezier(0.7, 0, 0.3, 1);
+  transition: --wipe 540ms cubic-bezier(0.7, 0, 0.3, 1);
 }
 
 .page-nav-overlay--open {

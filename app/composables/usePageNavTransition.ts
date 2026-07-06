@@ -1,7 +1,7 @@
 /** True while the outgoing page is gone and the incoming page is not yet visible. */
 export const pageNavTransitionLoading = ref(false);
 
-const CLIP_MS = 450;
+const CLIP_MS = 540;
 
 /**
  * Two flags drive the overlay in app.vue:
