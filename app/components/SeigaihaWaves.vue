@@ -13,6 +13,12 @@ withDefaults(
     color: "var(--wave-ink)",
   },
 );
+
+// Unique id per instance so multiple <SeigaihaWaves> on the page do not
+// collide on <pattern id="seigaiha">. Without this, mounting a second
+// instance (e.g. the loader) hijacks the id, and unmounting it wipes the
+// pattern the first instance's <rect fill="url(#...)"> is referencing.
+const patternId = `seigaiha-${useId()}`;
 </script>
 
 <template>
@@ -24,7 +30,7 @@ withDefaults(
   >
     <defs>
       <pattern
-        id="seigaiha"
+        :id="patternId"
         :width="tile"
         :height="tile * 0.5"
         patternUnits="userSpaceOnUse"
@@ -54,6 +60,6 @@ withDefaults(
         </g>
       </pattern>
     </defs>
-    <rect width="100%" height="100%" fill="url(#seigaiha)" />
+    <rect width="100%" height="100%" :fill="`url(#${patternId})`" />
   </svg>
 </template>
