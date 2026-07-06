@@ -1,68 +1,63 @@
 /** True while the outgoing page is gone and the incoming page is not yet visible. */
 export const pageNavTransitionLoading = ref(false);
 
-const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const DURATION_S = "0.35s";
-
-function applyTransition(el: HTMLElement) {
-	el.style.transition = `opacity ${DURATION_S} ${EASE}, transform ${DURATION_S} ${EASE}`;
-}
-
-function runEnterAfterReady(el: HTMLElement, done: () => void) {
-	applyTransition(el);
-	requestAnimationFrame(() => {
-		requestAnimationFrame(() => {
-			el.style.opacity = "1";
-			el.style.transform = "translateY(0)";
-			window.setTimeout(() => {
-				el.style.transition = "";
-				done();
-			}, 400);
-		});
-	});
-}
-
-function runLeave(el: HTMLElement, done: () => void) {
-	applyTransition(el);
-	requestAnimationFrame(() => {
-		el.style.opacity = "0";
-		el.style.transform = "translateY(12px)";
-		window.setTimeout(() => {
-			el.style.transition = "";
-			pageNavTransitionLoading.value = true;
-			done();
-		}, 400);
-	});
-}
+const CLIP_MS = 450;
 
 /**
- * `css: false` so we drive opacity/transform manually and keep the loading flag
- * in sync with the incoming page's mount.
+ * Two flags drive the overlay in app.vue:
+ *   - overlayVisible: v-show; keeps the overlay in the DOM across the whole
+ *     leave + swap + enter sequence so its clip-path animation is continuous.
+ *   - overlayOpen: toggles .page-nav-overlay--open, which transitions
+ *     clip-path from inset(50%) (invisible) → inset(0) (covering).
+ *
+ * Sequence:
+ *   1. onLeave: mount overlay (visible=true, open=false = fully iris-closed),
+ *      then next frame flip open=true so it irises OUT from center over the
+ *      still-full-size outgoing page. After CLIP_MS, call done() and Vue
+ *      swaps children while the overlay is fully covering (no white flash).
+ *   2. onEnter: children are swapped, overlay still fully covers. Wait a
+ *      tick for the new page to mount, then flip open=false so the overlay
+ *      irises BACK IN to center, revealing the new page. After CLIP_MS,
+ *      hide the overlay (visible=false) and call done().
  */
 export function usePageNavTransition() {
+	const overlayVisible = ref(false);
+	const overlayOpen = ref(false);
+
 	const pageNavTransition = {
 		name: "page-nav",
 		mode: "out-in" as const,
 		css: false,
-		onBeforeEnter(el: Element) {
-			const elHtml = el as HTMLElement;
-			elHtml.style.opacity = "0";
-			elHtml.style.transform = "translateY(12px)";
+		onLeave(_el: Element, done: () => void) {
+			pageNavTransitionLoading.value = true;
+			overlayVisible.value = true;
+			overlayOpen.value = false;
+			// Two rAFs so the initial clip-path (fully closed) commits before
+			// we flip .page-nav-overlay--open on and start the transition.
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					overlayOpen.value = true;
+					window.setTimeout(done, CLIP_MS);
+				});
+			});
 		},
-		onEnter(el: Element, done: () => void) {
-			const elHtml = el as HTMLElement;
+		onEnter(_el: Element, done: () => void) {
 			void (async () => {
 				await nextTick();
-				runEnterAfterReady(elHtml, () => {
+				overlayOpen.value = false;
+				window.setTimeout(() => {
+					overlayVisible.value = false;
 					pageNavTransitionLoading.value = false;
 					done();
-				});
+				}, CLIP_MS);
 			})();
-		},
-		onLeave(el: Element, done: () => void) {
-			runLeave(el as HTMLElement, done);
 		},
 	};
 
-	return { pageNavTransition, pageNavTransitionLoading };
+	return {
+		pageNavTransition,
+		pageNavTransitionLoading,
+		pageNavOverlayVisible: overlayVisible,
+		pageNavOverlayOpen: overlayOpen,
+	};
 }

@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 const { ready: isAppReady } = useSiteReady();
-const { pageNavTransition, pageNavTransitionLoading } =
-  usePageNavTransition();
+const {
+  pageNavTransition,
+  pageNavTransitionLoading,
+  pageNavOverlayVisible,
+  pageNavOverlayOpen,
+} = usePageNavTransition();
 </script>
 
 <template>
@@ -15,16 +19,15 @@ const { pageNavTransition, pageNavTransitionLoading } =
 
     <SiteLoading :ready="isAppReady" />
 
-    <Transition name="page-nav-load">
-      <div
-        v-show="pageNavTransitionLoading"
-        class="fixed inset-0 z-40 flex flex-col items-center justify-center bg-(--ink) px-6"
-        aria-live="polite"
-        :aria-busy="pageNavTransitionLoading"
-      >
-        <SkullLoader variant="on-ink" />
-      </div>
-    </Transition>
+    <div
+      v-show="pageNavOverlayVisible"
+      class="page-nav-overlay fixed inset-0 z-40 flex flex-col items-center justify-center bg-(--ink) px-6"
+      :class="{ 'page-nav-overlay--open': pageNavOverlayOpen }"
+      aria-live="polite"
+      :aria-busy="pageNavTransitionLoading"
+    >
+      <SkullLoader variant="on-ink" />
+    </div>
 
     <!-- Navbar outside <main> so main overflow-hidden never clips the menu -->
     <ClientOnly>
@@ -38,21 +41,18 @@ const { pageNavTransition, pageNavTransitionLoading } =
 
 <style>
 /*
- * Square radial wipe on leave — same technique as SiteLoading. Enter still
- * fades so the overlay covers the outgoing page smoothly; leave wipes away
- * to reveal the incoming page in a square growing from center.
- * See SiteLoading.vue for the polygon/hole/@property mechanics.
+ * Overlay is a static full-viewport ink layer with a square hole in the
+ * middle. --wipe is the half-side of the hole as a % of the overlay.
+ *   --wipe: 71% (~sqrt(0.5)) → hole covers the viewport → overlay invisible
+ *   --wipe: 0%              → no hole → overlay fully covers
+ * Leave animates 71% → 0% (ink closes IN from edges to center).
+ * Enter animates 0% → 71% (hole opens FROM center outward).
+ * clip-path polygon: outer viewport rect (CW) + inner centered square (CCW)
+ * joined by a zero-width seam on the left edge — the self-intersecting
+ * winding produces a hole rather than a stacked shape.
  */
-.page-nav-load-enter-active {
-  transition: opacity 280ms ease-in-out;
-}
-
-.page-nav-load-enter-from {
-  opacity: 0;
-}
-
-.page-nav-load-leave-active {
-  --wipe: 0%;
+.page-nav-overlay {
+  --wipe: 71%;
   clip-path: polygon(
     0% 0%,
     0% 100%,
@@ -65,27 +65,28 @@ const { pageNavTransition, pageNavTransitionLoading } =
     calc(50% - var(--wipe)) calc(50% + var(--wipe)),
     calc(50% - var(--wipe)) calc(50% - var(--wipe))
   );
-  transition: --wipe 900ms cubic-bezier(0.7, 0, 0.3, 1);
+  transition: --wipe 450ms cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.page-nav-load-leave-to {
-  --wipe: 71%;
+.page-nav-overlay--open {
+  --wipe: 0%;
 }
 
 @property --wipe {
   syntax: "<percentage>";
   inherits: false;
-  initial-value: 0%;
+  initial-value: 71%;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-nav-load-leave-active {
-    transition: opacity 200ms ease-in-out;
+  .page-nav-overlay {
     clip-path: none;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
   }
 
-  .page-nav-load-leave-to {
-    opacity: 0;
+  .page-nav-overlay--open {
+    opacity: 1;
   }
 }
 </style>
