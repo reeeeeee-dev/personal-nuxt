@@ -9,12 +9,17 @@ withDefaults(
 
 <template>
   <div class="flex flex-col items-center gap-6">
-    <img
-      src="/loading-skull.gif"
-      alt=""
-      class="max-h-[min(42vh,22rem)] w-auto max-w-[min(90vw,28rem)] object-contain select-none"
-      draggable="false"
-    />
+    <div
+      class="aspect-square w-[min(42vh,22rem)] max-w-[min(90vw,28rem)] overflow-hidden select-none"
+      aria-hidden="true"
+    >
+      <SeigaihaWaves
+        :tile="110"
+        :stroke-opacity="0.45"
+        :fill-opacity="0.04"
+        color="#8C6A1F"
+      />
+    </div>
     <div
       class="skull-loader__dots flex shrink-0 items-center gap-3"
       :class="variant === 'on-cream' ? 'skull-loader__dots--on-cream' : ''"
