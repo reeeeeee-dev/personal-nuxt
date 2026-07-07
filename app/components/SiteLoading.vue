@@ -8,7 +8,7 @@ defineProps<{
   <Transition name="site-load">
     <div
       v-show="!ready"
-      class="site-load fixed inset-0 z-9999 flex flex-col items-center justify-center bg-(--ink) px-6"
+      class="site-load iris-wipe fixed inset-0 z-9999 flex flex-col items-center justify-center bg-(--ink) px-6"
       aria-live="polite"
       :aria-busy="!ready"
     >
@@ -19,33 +19,17 @@ defineProps<{
 
 <style>
 /*
- * Square iris wipe on leave: overlay is a full-viewport ink layer with a
- * square hole cut out via a self-intersecting polygon (outer viewport rect
- * CW + inner centered square CCW). --wipe is the half-side of the hole as
- * a % of the overlay. 0% = no hole (covers). 71% ≈ sqrt(0.5) so the hole's
- * corners fully contain the viewport regardless of aspect ratio.
+ * Site-load overlay uses the shared .iris-wipe polygon (main.css). Base state
+ * is fully closed (covers viewport). On leave, --wipe animates 0% → 71%
+ * (hole opens from center outward, revealing the app).
  *
- * Vue's <Transition> flow: adds -leave-from + -leave-active (from state),
- * next frame swaps -leave-from for -leave-to (to state), interpolates. We
- * pin --wipe: 0% on the base .site-load class AND on -leave-from so the
- * transition has an explicit starting value — without it, the browser
- * paints the combined -active + -to state on the same frame and skips the
- * animation entirely (the initial-flash bug).
+ * Pinning --wipe: 0% on both .site-load AND .site-load-leave-from gives the
+ * transition an explicit starting value — without it Vue paints the combined
+ * -active + -to state on the same frame and skips the animation (the
+ * initial-flash bug).
  */
 .site-load {
   --wipe: 0%;
-  clip-path: polygon(
-    0% 0%,
-    0% 100%,
-    100% 100%,
-    100% 0%,
-    0% 0%,
-    calc(50% - var(--wipe)) calc(50% - var(--wipe)),
-    calc(50% + var(--wipe)) calc(50% - var(--wipe)),
-    calc(50% + var(--wipe)) calc(50% + var(--wipe)),
-    calc(50% - var(--wipe)) calc(50% + var(--wipe)),
-    calc(50% - var(--wipe)) calc(50% - var(--wipe))
-  );
 }
 
 .site-load-leave-active {
@@ -58,12 +42,6 @@ defineProps<{
 
 .site-load-leave-to {
   --wipe: 71%;
-}
-
-@property --wipe {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
 }
 
 @media (prefers-reduced-motion: reduce) {
