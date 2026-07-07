@@ -6,6 +6,39 @@ const {
   pageNavOverlayVisible,
   pageNavOverlayOpen,
 } = usePageNavTransition();
+
+// Site-wide favicon links and social share meta.
+// Favicon set + og-image live in /public and depict the seigaiha wave motif —
+// matching the landing background pattern (see components/SeigaihaWaves.vue).
+useHead({
+  link: [
+    { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      href: "/favicon-16x16.png",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: "/favicon-32x32.png",
+    },
+    { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+    { rel: "manifest", href: "/site.webmanifest" },
+  ],
+  meta: [{ name: "theme-color", content: "#151514" }],
+});
+
+useSeoMeta({
+  ogImage: "/og-image.png",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: "image/png",
+  twitterCard: "summary_large_image",
+  twitterImage: "/og-image.png",
+});
 </script>
 
 <template>
