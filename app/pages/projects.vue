@@ -242,7 +242,7 @@ const projects: Project[] = [
                   My cousin wanted a new website for my dad's dry cleaning
                   business. It was a simple and straightforward project. After
                   building the website with Vue and Tailwind, I hosted it using
-                  Cloudflare Pages. I'm not sure it it'll ever be finished at
+                  Cloudflare Pages. I'm not sure if it'll ever be finished at
                   the time of writing. I asked my cousin for images and he
                   hasn't responded yet. Visit them at
                   <a
@@ -340,7 +340,7 @@ const projects: Project[] = [
                   This was one of my first forays in native Android development.
                   Resplash is always one of the first apps I download when I get
                   a new phone. It has an autowallpaper feature that updates the
-                  wallpaper on my phone on a set interval. I also occasioanlly
+                  wallpaper on my phone on a set interval. I also occasionally
                   find myself scrolling Unsplash so having a mobile client was
                   useful.
                 </p>
