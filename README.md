@@ -1,75 +1,71 @@
-# Nuxt Minimal Starter
+# personal-nuxt
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Source for [reetikpatel.me](https://reetikpatel.me) — my personal site.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- [Nuxt 4](https://nuxt.com) · Vue 3 · TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com) via `@tailwindcss/vite`
+- [@nuxt/fonts](https://fonts.nuxt.com) — Fraunces (display) + Manrope (sans), self-hosted
+- [Three.js](https://threejs.org) + custom GLSL for the landing paint-stroke shader
+- Deployed to [Cloudflare Workers](https://developers.cloudflare.com/workers/) via [Wrangler](https://developers.cloudflare.com/workers/wrangler/) (Nitro `cloudflare_module` preset)
+
+## Structure
+
+```
+app/
+├── app.vue               # root — favicon links, SEO meta, page-nav overlay
+├── pages/
+│   ├── index.vue         # landing — seigaiha + paint strokes
+│   ├── about.vue
+│   ├── journey.vue
+│   └── projects.vue
+├── components/
+│   ├── SeigaihaWaves.vue         # tiled 青海波 SVG pattern
+│   ├── SeigaihaLoader.vue        # animated variant used during nav
+│   ├── AfterstonePaintStrokesGL.vue  # Three.js shader
+│   ├── HomeScene.vue
+│   ├── Navbar.vue
+│   └── SiteLoading.vue / SiteFooter.vue / GoldRose.vue
+├── composables/          # useSiteReady, usePageNavTransition, …
+└── assets/css/main.css   # design tokens (--ink, --cream, --wave-ink, …)
+
+public/                   # favicons, og-image, static assets
+wrangler.jsonc            # Cloudflare Worker config (custom domain: reetikpatel.me)
+nuxt.config.ts
+```
+
+## Develop
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
 yarn install
-
-# bun
-bun install
+yarn dev               # http://localhost:3000
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Build & preview
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+yarn build             # nuxt build → .output/
+yarn preview           # build + wrangler dev (runs on the Workers runtime locally)
 ```
 
-## Production
-
-Build the application for production:
+## Deploy
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+yarn deploy            # build + wrangler deploy → reetikpatel.me
 ```
 
-Locally preview production build:
+Requires `wrangler login` and access to the Cloudflare account bound in
+[`wrangler.jsonc`](wrangler.jsonc).
 
-```bash
-# npm
-npm run preview
+## Design notes
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- **Seigaiha (青海波)** is the visual anchor — landing background, page-nav
+  loader, and the entire favicon / OG image set are all the same wave motif
+  rendered from [`SeigaihaWaves.vue`](app/components/SeigaihaWaves.vue).
+- Palette lives as CSS custom properties in
+  [`app/assets/css/main.css`](app/assets/css/main.css): `--ink` `#151514`,
+  `--cream` `#ceb9a1`, `--wave-ink` `#7a8a82`, with a warm gold accent
+  (`#8C6A1F` / `#C9A24A`) for the seigaiha stroke.
+- Landing scroll is locked via `useHead` classes so the shader canvas stays
+  pinned; interior pages scroll normally.
