@@ -111,17 +111,8 @@ const roles: Role[] = [
 </script>
 
 <template>
-  <div
-    class="min-h-screen bg-(--ink) px-8 py-16 text-(--cream) md:px-12 md:py-24"
-  >
-    <article class="mx-auto max-w-6xl">
-      <h1
-        class="font-display text-4xl font-medium leading-[1.05] tracking-[-0.02em] md:text-6xl"
-      >
-        My Journey
-      </h1>
-
-      <nav
+  <PageShell title="My Journey">
+    <nav
         class="mt-10 border-t border-(--cream)/20 pt-8"
         aria-label="On this page"
       >
@@ -201,7 +192,5 @@ const roles: Role[] = [
           </div>
         </section>
       </div>
-    </article>
-    <SiteFooter />
-  </div>
+  </PageShell>
 </template>

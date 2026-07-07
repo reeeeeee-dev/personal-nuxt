@@ -111,17 +111,8 @@ const projects: Project[] = [
 </script>
 
 <template>
-  <div
-    class="min-h-screen bg-(--ink) px-8 py-16 text-(--cream) md:px-12 md:py-24"
-  >
-    <article class="mx-auto max-w-6xl">
-      <h1
-        class="font-display text-4xl font-medium leading-[1.05] tracking-[-0.02em] md:text-6xl"
-      >
-        Projects, Presentations, and Contracts
-      </h1>
-
-      <nav
+  <PageShell title="Projects, Presentations, and Contracts">
+    <nav
         class="mt-10 border-t border-(--cream)/20 pt-8"
         aria-label="On this page"
       >
@@ -185,7 +176,7 @@ const projects: Project[] = [
                     href="https://waypave.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >waypave.com</a
                   >.
                 </p>
@@ -208,7 +199,7 @@ const projects: Project[] = [
                     href="https://allavservices.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >allavservices.com</a
                   >.
                 </p>
@@ -229,7 +220,7 @@ const projects: Project[] = [
                     href="https://officialpuracoco.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >officialpuracoco.com</a
                   >.
                 </p>
@@ -249,7 +240,7 @@ const projects: Project[] = [
                     href="https://drycleansupercenter.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >drycleansupercenter.com</a
                   >.
                 </p>
@@ -289,7 +280,7 @@ const projects: Project[] = [
                     href="https://github.com/ohmyopenagent"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >Oh My OpenAgent</a
                   >
                   &mdash; an orchestration layer over Claude that I lean on for
@@ -304,7 +295,7 @@ const projects: Project[] = [
                     href="https://www.albionjeune.com/exhibitions/23-afterstone-su-yu-xin/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >Afterstone</a
                   >, Su Yu-Xin&rsquo;s 2026 series of paintings ground from
                   real minerals &mdash; sulphur, realgar, orpiment, lapis
@@ -357,7 +348,7 @@ const projects: Project[] = [
                     href="https://b-lam.github.io/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
+                    class="external-link"
                     >Brandon Lam</a
                   >, I had my first pull request merged and released to the
                   Google Play Store.
@@ -425,7 +416,5 @@ const projects: Project[] = [
           </div>
         </section>
       </div>
-    </article>
-    <SiteFooter />
-  </div>
+  </PageShell>
 </template>
