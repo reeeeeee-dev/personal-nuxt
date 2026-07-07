@@ -25,7 +25,7 @@ useHead({
     />
 
     <ClientOnly>
-      <AfterstonePaintStrokesGL
+      <LandingPaintStrokesGL
         class="pointer-events-none absolute inset-0 z-[5]"
       />
     </ClientOnly>
