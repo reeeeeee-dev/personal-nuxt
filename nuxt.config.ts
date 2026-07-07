@@ -4,7 +4,26 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	devtools: { enabled: true },
-	modules: ["nitro-cloudflare-dev", "@nuxt/fonts"],
+	modules: ["nitro-cloudflare-dev", "@nuxt/fonts", "@nuxt/icon"],
+
+	// Icons are served via @nuxt/icon. On Cloudflare Workers, `serverBundle: 'auto'`
+	// (default) picks `remote` — icons are fetched from jsdelivr on demand rather
+	// than shipping the full collection JSON in the Worker bundle. We still
+	// pre-bundle the icons known at build time into the client bundle so they
+	// render on first paint without a round-trip.
+	icon: {
+		mode: "svg",
+		clientBundle: {
+			icons: [
+				"simple-icons:github",
+				"simple-icons:linkedin",
+				"simple-icons:instagram",
+				"simple-icons:buymeacoffee",
+				"lucide:arrow-up",
+			],
+			scan: true,
+		},
+	},
 
 	css: ["~/assets/css/main.css"],
 

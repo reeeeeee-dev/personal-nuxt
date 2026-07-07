@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { contactInfo, socialLinks } from "~/config/site";
+
 definePageMeta({
   title: "About",
 });
@@ -92,7 +94,7 @@ definePageMeta({
             When I&rsquo;m not writing code, I&rsquo;m usually behind a camera
             (mostly on my
             <a
-              href="https://instagram.com/reetik_photography"
+              :href="socialLinks.instagram"
               target="_blank"
               rel="noopener noreferrer"
               class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
@@ -146,10 +148,10 @@ definePageMeta({
             </dt>
             <dd>
               <a
-                href="mailto:reetikp@gmail.com"
+                :href="`mailto:${contactInfo.email}`"
                 class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
               >
-                reetikp@gmail.com
+                {{ contactInfo.email }}
               </a>
             </dd>
             <dt
@@ -159,10 +161,10 @@ definePageMeta({
             </dt>
             <dd>
               <a
-                href="tel:+14793851212"
+                :href="`tel:${contactInfo.phoneHref}`"
                 class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
               >
-                (479) 385-1212
+                {{ contactInfo.phoneDisplay }}
               </a>
             </dd>
             <dt
@@ -172,7 +174,7 @@ definePageMeta({
             </dt>
             <dd>
               <a
-                href="https://linkedin.com/in/reetik"
+                :href="socialLinks.linkedin"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
@@ -187,7 +189,7 @@ definePageMeta({
             </dt>
             <dd>
               <a
-                href="https://instagram.com/reetik_photography"
+                :href="socialLinks.instagram"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-(--cream) underline decoration-(--cream)/40 underline-offset-2 transition-colors hover:text-(--red) hover:decoration-(--red)"
