@@ -7,6 +7,7 @@ Source for [reetikpatel.me](https://reetikpatel.me) — my personal site.
 - [Nuxt 4](https://nuxt.com) · Vue 3 · TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com) via `@tailwindcss/vite`
 - [@nuxt/fonts](https://fonts.nuxt.com) — Fraunces (display) + Manrope (sans), self-hosted
+- [@nuxt/icon](https://github.com/nuxt/icon) — Iconify (`simple-icons` + `lucide`), pre-bundled for first paint
 - [Three.js](https://threejs.org) + custom GLSL for the landing paint-stroke shader
 - Deployed to [Cloudflare Workers](https://developers.cloudflare.com/workers/) via [Wrangler](https://developers.cloudflare.com/workers/wrangler/) (Nitro `cloudflare_module` preset)
 
@@ -21,14 +22,15 @@ app/
 │   ├── journey.vue
 │   └── projects.vue
 ├── components/
-│   ├── SeigaihaWaves.vue         # tiled 青海波 SVG pattern
-│   ├── SeigaihaLoader.vue        # animated variant used during nav
-│   ├── AfterstonePaintStrokesGL.vue  # Three.js shader
-│   ├── HomeScene.vue
+│   ├── SeigaihaWaves.vue           # tiled 青海波 SVG pattern
+│   ├── SeigaihaLoader.vue          # animated variant used during nav
+│   ├── LandingPaintStrokesGL.vue   # Three.js + GLSL paint-stroke ribbons
 │   ├── Navbar.vue
-│   └── SiteLoading.vue / SiteFooter.vue / GoldRose.vue
-├── composables/          # useSiteReady, usePageNavTransition, …
-└── assets/css/main.css   # design tokens (--ink, --cream, --wave-ink, …)
+│   ├── PageShell.vue               # shared interior-page wrapper (bg + H1 + footer)
+│   └── SiteLoading.vue / SiteFooter.vue
+├── composables/          # useSiteReady, usePageNavTransition
+├── config/site.ts        # nav links, social URLs, contact info
+└── assets/css/main.css   # design tokens + .iris-wipe + .external-link
 
 public/                   # favicons, og-image, static assets
 wrangler.jsonc            # Cloudflare Worker config (custom domain: reetikpatel.me)
