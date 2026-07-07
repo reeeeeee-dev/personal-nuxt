@@ -1,10 +1,9 @@
-/** True while the outgoing page is gone and the incoming page is not yet visible. */
-export const pageNavTransitionLoading = ref(false);
-
 const CLIP_MS = 1080;
 
 /**
- * Two flags drive the overlay in app.vue:
+ * Drives the page-nav iris overlay in app.vue.
+ *
+ * Two flags:
  *   - overlayVisible: v-show; keeps the overlay in the DOM across the whole
  *     leave + swap + enter sequence so its clip-path animation is continuous.
  *   - overlayOpen: toggles .page-nav-overlay--open, which transitions
@@ -19,10 +18,14 @@ const CLIP_MS = 1080;
  *      tick for the new page to mount, then flip open=false so the overlay
  *      irises BACK IN to center, revealing the new page. After CLIP_MS,
  *      hide the overlay (visible=false) and call done().
+ *
+ * All refs live inside the factory so SSR gets a fresh instance per request.
  */
 export function usePageNavTransition() {
 	const overlayVisible = ref(false);
 	const overlayOpen = ref(false);
+	/** True while the outgoing page is gone and the incoming page is not yet visible. */
+	const pageNavTransitionLoading = ref(false);
 
 	const pageNavTransition = {
 		name: "page-nav",
