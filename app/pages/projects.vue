@@ -96,6 +96,24 @@ const projects: Project[] = [
     },
   },
   {
+    id: "job",
+    tocLabel: "Job by Alphonse Mucha",
+    title: "Job by Alphonse Mucha",
+    stack: ["Vue", "Vite", "Tailwind", "Cloudflare"],
+    image: {
+      src: "/img/job.mp4",
+      alt: "Job by Alphonse Mucha project preview",
+      class:
+        "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]",
+    },
+    video: {
+      sources: [
+        { src: "/img/job.webm", type: "video/webm" },
+        { src: "/img/job.mp4", type: "video/mp4" },
+      ],
+    },
+  },
+  {
     id: "resplash",
     tocLabel: "Resplash",
     title: "Resplash",
@@ -321,6 +339,29 @@ const projects: Project[] = [
                       height="32"
                     />
                   </a>
+                </p>
+              </template>
+
+              <template v-else-if="p.id === 'job'">
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  A course project for ARHS 2923 built around Alphonse Mucha's
+                  1896 Art Nouveau poster
+                  <em>Job</em>, commissioned by the Joseph Bardou Tobacco
+                  Company. Three pages &mdash; a home splash with the poster
+                  slid in from the corner, an essay on Mucha's role in
+                  democratizing art, and a references page &mdash; tied
+                  together with a custom cursor, a tilt card that responds to
+                  pointer position, and soft page transitions.
+                </p>
+                <p
+                  class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+                >
+                  Built with Vue 3 and Vite, styled with Tailwind, and
+                  deployed to a Cloudflare Worker with SPA routing. A small
+                  brief that let me sit with a single painting for a while and
+                  build the frame around it.
                 </p>
               </template>
 
