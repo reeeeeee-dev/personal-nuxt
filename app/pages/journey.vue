@@ -14,15 +14,14 @@ const roles: Entry[] = [
     tocLabel: "WayPave",
     title: "WayPave",
     stack: ["Vite", "Handlebars", "Tailwind", "Firebase"],
-    video: {
-      sources: [
-        { src: "/img/waypave.webm", type: "video/webm" },
-        { src: "/img/waypave.mp4", type: "video/mp4" },
-      ],
-      alt: "WayPave marketing site preview",
-      class:
-        "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]",
-    },
+    images: [
+      {
+        src: "/img/waypave.svg",
+        alt: "WayPave",
+        class:
+          "aspect-square w-full max-w-56 bg-[rgb(20,20,22)] object-contain p-8 sm:max-w-60 sm:p-12",
+      },
+    ],
   },
   {
     id: "design-pickle",
