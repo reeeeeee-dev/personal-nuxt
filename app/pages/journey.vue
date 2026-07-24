@@ -26,7 +26,7 @@ const roles: Role[] = [
     tocLabel: "Design Pickle",
     title: "Design Pickle",
     stack: ["Typescript", "Javascript", "SCSS", "Storybook", "Jest"],
-    body: "Still too early to summarize, I'm learning and growing in my current role.",
+    body: "I joined Design Pickle as a Senior Frontend Software Engineer in September 2024. My main project was leading the full frontend migration from a legacy Rails-served React app to Remix, then React Router 7. Active feature work never stopped, so I prioritized the highest-traffic pages and rewrote complex components in-flight. I set up a CI/CD workflow that published Storybook for both the legacy and new apps, which tightened alignment between design and engineering. Along the way I shipped new project management features end-to-end, cleared a long tail of bugs, and pushed test coverage and readability across the codebase.",
     images: [
       {
         src: "/img/designpickle.jpg",
