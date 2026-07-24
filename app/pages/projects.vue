@@ -12,6 +12,28 @@ const mediaClassWhite =
 
 const projects: Entry[] = [
   {
+    id: "nwacf",
+    tocLabel: "NWA Chess Foundation",
+    title: "NWA Chess Foundation",
+    stack: [
+      "Typescript",
+      "React",
+      "React Router 8",
+      "Tailwind v4",
+      "Drizzle",
+      "Cloudflare D1",
+      "Cloudflare Workers",
+      "Cloudflare Zero Trust",
+    ],
+    images: [
+      {
+        src: "/img/nwacf.jpg",
+        alt: "NWA Chess Foundation website preview",
+        class: mediaClass,
+      },
+    ],
+  },
+  {
     id: "this-site",
     tocLabel: "This Site",
     title: "This Site",
@@ -111,7 +133,37 @@ const projects: Entry[] = [
       media-wrapper-class="max-w-2xl lg:max-w-none"
     >
       <template #body="{ entry }">
-        <template v-if="entry.id === 'allavservices'">
+        <template v-if="entry.id === 'nwacf'">
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            My best friend
+            <a
+              href="https://www.instagram.com/camerannewinfrey/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link"
+              >Cameranne Winfrey</a
+            >
+            started the NWA Chess Foundation. It&rsquo;s a nonprofit growing
+            chess across Northwest Arkansas. I tag along to her events. When
+            she needed a real home for the foundation on the web, she hired
+            me to build it. I designed and shipped the full site: React
+            Router 8, Tailwind v4, and a Drizzle schema on Cloudflare D1.
+            Events and tournament registration run on a single Cloudflare
+            Worker. Cloudflare Zero Trust handles auth so the organizers can
+            manage everything without a separate auth stack. Visit them at
+            <a
+              href="https://nwachessfoundation.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link"
+              >nwachessfoundation.org</a
+            >.
+          </p>
+        </template>
+
+        <template v-else-if="entry.id === 'allavservices'">
           <p
             class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
           >
