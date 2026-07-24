@@ -1,26 +1,29 @@
 <script lang="ts" setup>
+import type { Entry } from "~/types/entry";
+
 definePageMeta({
   title: "Journey",
 });
 
-type RoleImage = {
-  src: string;
-  alt: string;
-  class: string;
-};
+const logoClass =
+  "aspect-square w-full max-w-56 object-contain bg-white sm:max-w-60";
 
-type Role = {
-  id: string;
-  title: string;
-  tocLabel: string;
-  stack: string[];
-  body: string;
-  /** Matches prior site: one logo or a row (e.g. Divvy + Bill.com). */
-  images?: RoleImage[];
-  imageRowClass?: string;
-};
-
-const roles: Role[] = [
+const roles: Entry[] = [
+  {
+    id: "waypave",
+    tocLabel: "WayPave",
+    title: "WayPave",
+    stack: ["Vite", "Handlebars", "Tailwind", "Firebase"],
+    video: {
+      sources: [
+        { src: "/img/waypave.webm", type: "video/webm" },
+        { src: "/img/waypave.mp4", type: "video/mp4" },
+      ],
+      alt: "WayPave marketing site preview",
+      class:
+        "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]",
+    },
+  },
   {
     id: "design-pickle",
     tocLabel: "Design Pickle",
@@ -31,8 +34,7 @@ const roles: Role[] = [
       {
         src: "/img/designpickle.jpg",
         alt: "Design Pickle",
-        class:
-          "aspect-square w-full max-w-56 object-contain bg-white sm:max-w-60",
+        class: logoClass,
       },
     ],
   },
@@ -112,85 +114,29 @@ const roles: Role[] = [
 
 <template>
   <PageShell title="My Journey">
-    <nav
-        class="mt-10 border-t border-(--cream)/20 pt-8"
-        aria-label="On this page"
-      >
-        <ul
-          class="font-display flex list-disc flex-col gap-2 pl-5 text-xl font-normal italic md:text-2xl"
-        >
-          <li v-for="role in roles" :key="role.id">
-            <a
-              :href="`#${role.id}`"
-              class="text-(--cream) transition-colors duration-300 hover:text-(--red)"
-            >
-              {{ role.tocLabel }}
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <div class="mt-16 flex flex-col gap-20 md:mt-20 md:gap-24">
-        <section
-          v-for="(role, i) in roles"
-          :id="role.id"
-          :key="role.id"
-          class="scroll-mt-8"
-        >
-          <div
-            class="flex flex-col gap-8 lg:items-start lg:gap-12 xl:gap-16"
-            :class="i % 2 === 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'"
+    <EntryList :entries="roles" stack-aria-prefix="Technologies at">
+      <template #body="{ entry }">
+        <template v-if="entry.id === 'waypave'">
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
           >
-            <div class="min-w-0 flex-1">
-              <h2
-                class="font-display text-3xl font-medium leading-[1.05] tracking-[-0.015em] md:text-4xl"
-              >
-                {{ role.title }}
-              </h2>
-              <ul
-                class="mt-6 flex flex-wrap gap-2"
-                :aria-label="`Technologies at ${role.title}`"
-              >
-                <li
-                  v-for="tech in role.stack"
-                  :key="tech"
-                  class="font-sans rounded-full border border-(--cream)/25 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-(--cream)/85 md:text-xs"
-                >
-                  {{ tech }}
-                </li>
-              </ul>
-              <p
-                class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
-              >
-                {{ role.body }}
-              </p>
-            </div>
-
-            <div
-              v-if="role.images?.length"
-              class="flex w-full shrink-0 justify-center lg:w-72 lg:max-w-[40%] lg:justify-end"
-            >
-              <div
-                class="flex w-full max-w-sm justify-center lg:max-w-none"
-                :class="role.imageRowClass"
-              >
-                <!-- biome-ignore lint/a11y/useAltText: alt comes from each RoleImage -->
-                <img
-                  v-for="img in role.images"
-                  :key="img.src"
-                  :src="img.src"
-                  :alt="img.alt"
-                  :class="[
-                    img.class,
-                    'shrink-0 rounded-sm border border-(--cream)/10',
-                  ]"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+            Ben Cline, an old coworker from Walmart, reached out. He's now
+            the CTO of WayPave. WayPave is a Northwest Arkansas startup
+            helping frontline workers find local jobs. My first project was
+            to refresh their marketing site. The site already ran on Vite,
+            Handlebars, and Tailwind, shipped to Firebase Hosting. I
+            modernized the design on top of that foundation. I leaned on
+            Oh My OpenAgent and Cursor to move fast. Visit them at
+            <a
+              href="https://waypave.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link"
+              >waypave.com</a
+            >.
+          </p>
+        </template>
+      </template>
+    </EntryList>
   </PageShell>
 </template>
