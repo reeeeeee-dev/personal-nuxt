@@ -268,10 +268,10 @@ const projects: Project[] = [
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
                 >
-                  The site you&rsquo;re reading right now. Built on Nuxt 4 with
-                  Vue 3, styled with Tailwind v4, deployed to a Cloudflare
-                  Worker via Wrangler. Type lives in Fraunces and Manrope,
-                  served through
+                  The site you&rsquo;re reading right now. It runs on Nuxt 4
+                  and Vue 3. Tailwind v4 handles the styles. Wrangler ships it
+                  to a Cloudflare Worker. Type is Fraunces and Manrope, served
+                  through
                   <code
                     class="font-sans rounded-sm bg-(--cream)/10 px-1.5 py-0.5 text-[0.85em] text-(--cream)"
                     >@nuxt/fonts</code
@@ -280,30 +280,28 @@ const projects: Project[] = [
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
                 >
-                  The landing is a Three.js scene layered under a tiling
-                  seigaiha (&#x9752;&#x6d77;&#x6ce2;) wave pattern. Twenty-eight
-                  gold ribbon meshes are triangulated from B&eacute;zier
-                  centerlines and animated in a custom GLSL vertex shader
-                  &mdash; each ribbon carries its own phase and frequency so
-                  the flame flicker at the tips never syncs. A rock-sparkle
-                  layer of ~400 additive points twinkles independently across
-                  the viewport in pale gold, champagne, and ice-blue mineral
-                  flecks.
+                  The landing is a Three.js scene under a tiling seigaiha
+                  (&#x9752;&#x6d77;&#x6ce2;) wave pattern. Twenty-eight gold
+                  ribbons are triangulated from B&eacute;zier centerlines. A
+                  custom GLSL vertex shader animates them. Each ribbon carries
+                  its own phase and frequency, so the flame flicker at the
+                  tips never syncs. Roughly 400 additive points twinkle
+                  across the viewport in pale gold, champagne, and ice-blue
+                  mineral flecks.
                 </p>
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
                 >
-                  Most of the implementation was paired with
+                  I paired most of the build with
                   <a
                     href="https://github.com/ohmyopenagent"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="external-link"
                     >Oh My OpenAgent</a
-                  >
-                  &mdash; an orchestration layer over Claude that I lean on for
-                  parallel exploration, planning, and visual QA against a real
-                  browser. The agent did the typing; I did the taste.
+                  >, an orchestration layer over Claude. It runs parallel
+                  exploration, planning, and visual QA in a real browser. The
+                  agent did the typing. I did the taste.
                 </p>
                 <p
                   class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
@@ -315,14 +313,14 @@ const projects: Project[] = [
                     rel="noopener noreferrer"
                     class="external-link"
                     >Afterstone</a
-                  >, Su Yu-Xin&rsquo;s 2026 series of paintings ground from
-                  real minerals &mdash; sulphur, realgar, orpiment, lapis
+                  >, Su Yu-Xin&rsquo;s 2026 series. She grinds her paints
+                  from real minerals: sulphur, realgar, orpiment, lapis
                   lazuli, charcoal, purple slate. The specific work is
-                  Waddling Parade (Coal-seam fires, Utah). I caught the exhibit
-                  at Lo Studio in Venice during a study abroad trip. The mix of
-                  geological patience and swirling, almost-tectonic motion
-                  stuck with me, and the gold here is my translation of that
-                  brushwork onto a Japanese wave field I&rsquo;ve always loved.
+                  Waddling Parade (Coal-seam fires, Utah). I caught the
+                  exhibit at Lo Studio in Venice on a study abroad trip. The
+                  mix of geological patience and tectonic motion stuck with
+                  me. The gold here is my translation of that brushwork onto
+                  a Japanese wave field I&rsquo;ve always loved.
                 </p>
                 <p class="mt-6">
                   <a
