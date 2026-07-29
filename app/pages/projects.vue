@@ -60,19 +60,6 @@ const projects: Entry[] = [
     ],
   },
   {
-    id: "drycleansupercenter",
-    tocLabel: "Dry Clean Super Center",
-    title: "Dry Clean Super Center",
-    stack: ["Vue", "Tailwind", "Cloudflare"],
-    images: [
-      {
-        src: "/img/drycleansupercenter.png",
-        alt: "Dry Clean Super Center website preview",
-        class: mediaClassWhite,
-      },
-    ],
-  },
-  {
     id: "job",
     tocLabel: "Job by Alphonse Mucha",
     title: "Job by Alphonse Mucha",
@@ -151,26 +138,6 @@ const projects: Entry[] = [
               rel="noopener noreferrer"
               class="external-link"
               >officialpuracoco.com</a
-            >.
-          </p>
-        </template>
-
-        <template v-else-if="entry.id === 'drycleansupercenter'">
-          <p
-            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
-          >
-            My cousin wanted a new website for my dad's dry cleaning
-            business. It was a simple and straightforward project. After
-            building the website with Vue and Tailwind, I hosted it using
-            Cloudflare Pages. I'm not sure if it'll ever be finished at the
-            time of writing. I asked my cousin for images and he hasn't
-            responded yet. Visit them at
-            <a
-              href="https://drycleansupercenter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="external-link"
-              >drycleansupercenter.com</a
             >.
           </p>
         </template>
