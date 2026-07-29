@@ -41,6 +41,6 @@ export type Entry = {
   /** Extra classes for the inner media wrapper (e.g. Divvy + Bill.com row). */
   imageRowClass?: string;
   video?: EntryVideo;
-  /** Live page preview. Takes precedence over `video` and `images`. */
+  /** Live page preview. Takes precedence over `video` and `images` when quality is "live". */
   embed?: EntryEmbed;
 };

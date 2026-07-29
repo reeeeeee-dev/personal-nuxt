@@ -15,6 +15,8 @@ defineProps<{
 defineSlots<{
   body(props: { entry: T }): unknown;
 }>();
+
+const { quality } = useMediaQuality();
 </script>
 
 <template>
@@ -86,7 +88,7 @@ defineSlots<{
             :class="[mediaWrapperClass ?? 'max-w-sm lg:max-w-none', e.imageRowClass]"
           >
             <MiniSitePreview
-              v-if="e.embed"
+              v-if="quality === 'live' && e.embed"
               :src="e.embed.src"
               :title="e.embed.title"
               :frame-width="e.embed.frameWidth"

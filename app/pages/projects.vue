@@ -8,6 +8,9 @@ definePageMeta({
 const mediaClassWhite =
   "h-full max-h-[36rem] w-full max-w-2xl object-contain bg-white sm:max-h-[44rem]";
 
+const mediaClass =
+  "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]";
+
 const projects: Entry[] = [
   {
     id: "this-site",
@@ -27,6 +30,13 @@ const projects: Entry[] = [
       src: "/",
       title: "This site, running live and interactive at miniature scale",
     },
+    images: [
+      {
+        src: "/img/personal-nuxt.png",
+        alt: "Reetik Patel personal site preview",
+        class: mediaClass,
+      },
+    ],
   },
   {
     id: "puracoco",
@@ -63,6 +73,14 @@ const projects: Entry[] = [
       src: "https://job.reetikpatel.me/",
       title: "Job by Alphonse Mucha, running live and interactive at miniature scale",
     },
+    video: {
+      sources: [
+        { src: "/img/job.webm", type: "video/webm" },
+        { src: "/img/job.mp4", type: "video/mp4" },
+      ],
+      alt: "Job by Alphonse Mucha project preview",
+      class: mediaClass,
+    },
   },
   {
     id: "resplash",
@@ -82,6 +100,7 @@ const projects: Entry[] = [
 
 <template>
   <PageShell title="Projects, Presentations, and Contracts">
+    <MediaQualityToggle />
     <EntryList
       :entries="projects"
       stack-aria-prefix="Technologies for"
