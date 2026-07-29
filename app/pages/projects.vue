@@ -25,13 +25,10 @@ const projects: Entry[] = [
       "Cloudflare Workers",
       "Oh My OpenAgent",
     ],
-    images: [
-      {
-        src: "/img/personal-nuxt.png",
-        alt: "Reetik Patel personal site preview",
-        class: mediaClass,
-      },
-    ],
+    embed: {
+      src: "/",
+      title: "This site, running live and interactive at miniature scale",
+    },
   },
   {
     id: "puracoco",

@@ -12,6 +12,19 @@ export type EntryVideo = {
 };
 
 /**
+ * A same-origin page rendered live inside a scaled-down frame, in place of a
+ * screenshot. Used by the "This Site" project to show an actual miniature of
+ * this site rather than a picture of it.
+ */
+export type EntryEmbed = {
+  src: string;
+  title: string;
+  /** Logical viewport rendered inside the frame, before it is scaled down. */
+  frameWidth?: number;
+  frameHeight?: number;
+};
+
+/**
  * Shared shape used by the Projects and Journey pages. Both render an
  * alternating list of sections with a title, tech-stack pill list, a body
  * (either a plain string or a rich per-entry slot), and an optional media
@@ -28,4 +41,6 @@ export type Entry = {
   /** Extra classes for the inner media wrapper (e.g. Divvy + Bill.com row). */
   imageRowClass?: string;
   video?: EntryVideo;
+  /** Live page preview. Takes precedence over `video` and `images`. */
+  embed?: EntryEmbed;
 };

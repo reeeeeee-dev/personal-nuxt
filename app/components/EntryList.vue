@@ -77,7 +77,7 @@ defineSlots<{
         </div>
 
         <div
-          v-if="e.video || e.images?.length"
+          v-if="e.embed || e.video || e.images?.length"
           class="flex w-full shrink-0 justify-center lg:justify-end"
           :class="mediaColumnClass ?? 'lg:w-72 lg:max-w-[40%]'"
         >
@@ -85,8 +85,16 @@ defineSlots<{
             class="flex w-full justify-center"
             :class="[mediaWrapperClass ?? 'max-w-sm lg:max-w-none', e.imageRowClass]"
           >
+            <MiniSitePreview
+              v-if="e.embed"
+              :src="e.embed.src"
+              :title="e.embed.title"
+              :frame-width="e.embed.frameWidth"
+              :frame-height="e.embed.frameHeight"
+              class="w-full max-w-2xl shrink-0 rounded-sm border border-(--cream)/10"
+            />
             <video
-              v-if="e.video"
+              v-else-if="e.video"
               :class="[
                 e.video.class,
                 'shrink-0 rounded-sm border border-(--cream)/10',
