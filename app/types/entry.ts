@@ -12,9 +12,9 @@ export type EntryVideo = {
 };
 
 /**
- * A same-origin page rendered live inside a scaled-down frame, in place of a
- * screenshot. Used by the "This Site" project to show an actual miniature of
- * this site rather than a picture of it.
+ * A page rendered live inside a scaled-down frame, in place of a screenshot,
+ * so a project shows an actual working miniature of itself. `src` may be
+ * same-origin or a full cross-origin URL.
  */
 export type EntryEmbed = {
   src: string;
