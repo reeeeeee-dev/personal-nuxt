@@ -17,13 +17,20 @@
 #                 client's account (wrangler's autoconfig picks one of the seven
 #                 accounts this login can see, which is how personal-nuxt once
 #                 got uploaded into a client's account)
-#   - routes      dropped, so the copy can never bind a client's custom domain
-#   - workers_dev enabled, so the copy is reachable at a *.workers.dev URL,
-#                 which is what the iframe actually loads
+#   - routes      replaced with a subdomain of reetikpatel.me, so a co-host
+#                 deploy can never bind the client's own hostname. These match
+#                 the convention the other side projects already follow
+#                 (job, now-playing, puracoco, arkanpute, cl, hackathon).
+#   - workers_dev left enabled as a fallback origin if the custom domain is
+#                 still provisioning
+#
+# Pura Coco is deliberately absent: it is already co-hosted at
+# puracoco.reetikpatel.me by the `official-puracoco` Worker, deployed from its
+# own repo. A second copy here would just be a duplicate.
 #
 # Usage:
-#   ./cohost/deploy.sh                      # all three
-#   ./cohost/deploy.sh puracoco steven-wise # a subset
+#   ./cohost/deploy.sh                       # both
+#   ./cohost/deploy.sh steven-wise           # a subset
 #
 set -euo pipefail
 
@@ -105,34 +112,6 @@ shrink_oversized_assets() { # $1=assets dir
 }
 
 # ---------------------------------------------------------------------------
-# Pura Coco — Nuxt 4, SSR on Workers. Same shape as its production deploy, just
-# without the officialpuracoco.com custom domain.
-# ---------------------------------------------------------------------------
-cohost_puracoco() {
-	sync_repo reeeeeee-dev/official-puracoco official-puracoco
-	local dir="$WORK/official-puracoco"
-
-	cat >"$dir/wrangler.cohost.jsonc" <<-JSON
-		{
-		  "name": "puracoco-preview",
-		  "account_id": "$ACCOUNT_ID",
-		  "compatibility_date": "2026-04-07",
-		  "main": ".output/server/index.mjs",
-		  "assets": {
-		    "directory": ".output/public",
-		    "not_found_handling": "single-page-application"
-		  },
-		  "observability": { "enabled": true },
-		  "workers_dev": true
-		}
-	JSON
-
-	log "puracoco: install + build"
-	(cd "$dir" && corepack yarn install --immutable && corepack yarn build)
-	deploy official-puracoco
-}
-
-# ---------------------------------------------------------------------------
 # All AV Services — Next.js 13 with `output: "export"`, so the build emits a
 # fully static ./out and this needs no SSR runtime at all. Deployed as an
 # assets-only Worker: no "main", just a directory.
@@ -153,7 +132,8 @@ cohost_allavservices() {
 		    "directory": "out",
 		    "not_found_handling": "404-page"
 		  },
-		  "workers_dev": true
+		  "workers_dev": true,
+		  "routes": [{ "pattern": "allav.reetikpatel.me", "custom_domain": true }]
 		}
 	JSON
 
@@ -235,7 +215,8 @@ cohost_steven_wise() {
 		  "vars": {
 		    "ACCESS_TEAM_DOMAIN": "https://stevenfwise.cloudflareaccess.com",
 		    "ACCESS_AUD": "cohost-preview-admin-disabled"
-		  }
+		  },
+		  "routes": [{ "pattern": "stevenwise.reetikpatel.me", "custom_domain": true }]
 		}
 	JSON
 
@@ -247,16 +228,15 @@ cohost_steven_wise() {
 main() {
 	local sites=("$@")
 	if [[ ${#sites[@]} -eq 0 ]]; then
-		sites=(puracoco allavservices steven-wise)
+		sites=(allavservices steven-wise)
 	fi
 
 	for site in "${sites[@]}"; do
 		case "$site" in
-			puracoco) cohost_puracoco ;;
 			allavservices) cohost_allavservices ;;
 			steven-wise) cohost_steven_wise ;;
 			*)
-				echo "unknown site: $site (expected puracoco, allavservices, steven-wise)" >&2
+				echo "unknown site: $site (expected allavservices, steven-wise)" >&2
 				exit 64
 				;;
 		esac

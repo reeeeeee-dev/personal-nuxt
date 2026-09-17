@@ -76,24 +76,34 @@ embedding production would spend a client's bandwidth and break the preview
 whenever they change their site.
 
 Instead each embeddable project is deployed a second time into my own
-Cloudflare account, and `projects.vue` embeds that copy via its `cohost()`
-helper. Each site keeps its own `wrangler.jsonc` pointed at its own domain;
+Cloudflare account, on a subdomain of this site — the same convention the other
+side projects already follow (`job`, `now-playing`, `arkanpute`, `cl`,
+`hackathon`). `projects.vue` builds those URLs with its `cohost()` helper.
+
+Each site keeps its own `wrangler.jsonc` pointed at its own production domain;
 [`cohost/deploy.sh`](cohost/deploy.sh) generates a `wrangler.cohost.jsonc`
-override at deploy time that repins `account_id`, drops `routes`, and enables
-`workers_dev`.
+override at deploy time that repins `account_id` and swaps `routes` for a
+`reetikpatel.me` subdomain, so a co-host deploy can neither land in a client's
+account nor bind a client's hostname.
 
 ```bash
-./cohost/deploy.sh                        # all three
-./cohost/deploy.sh puracoco steven-wise   # a subset
+./cohost/deploy.sh                 # both
+./cohost/deploy.sh steven-wise     # a subset
 ```
 
-| Project | Worker | Notes |
-| --- | --- | --- |
-| Pura Coco | `puracoco-preview` | Nuxt 4 SSR |
-| All AV Services | `allavservices-preview` | Next.js static export, assets-only Worker |
-| Steven Wise | `steven-wise-preview` | Nuxt 4 SSR + its own D1 and R2 |
+| Project | Host | Worker | Notes |
+| --- | --- | --- | --- |
+| Steven Wise | `stevenwise.reetikpatel.me` | `steven-wise-preview` | Nuxt 4 SSR + its own D1 and R2 |
+| All AV Services | `allav.reetikpatel.me` | `allavservices-preview` | Next.js static export, assets-only Worker |
+| Pura Coco | `puracoco.reetikpatel.me` | `official-puracoco` | Nuxt 4 SSR — deployed from its own repo, not by `deploy.sh` |
 
-Clones land in the gitignored `cohost/.work/`, so the first run is slow.
+Pura Coco is not in `deploy.sh`: it was already co-hosted on this domain before
+any of this existed, so it needs no second copy.
+
+Clones land in the gitignored `cohost/.work/`, so the first run is slow. All AV
+Services also needs a media pass — its export ships unoptimised source
+photography well past the 25 MiB Workers asset limit, so `deploy.sh` re-encodes
+anything over 8 MiB in the build output before uploading.
 
 Steven Wise needs data as well as code: its gallery reads artwork metadata from
 D1 and image bytes from R2. The copy gets its own `steven-wise-portfolio-preview`
