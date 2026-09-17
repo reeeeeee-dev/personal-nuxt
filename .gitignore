@@ -31,3 +31,6 @@ logs
 # Agent / tool artifacts
 .omo
 .playwright-mcp
+
+# Co-hosted project clones (see cohost/deploy.sh)
+cohost/.work

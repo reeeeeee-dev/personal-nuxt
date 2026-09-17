@@ -1,0 +1,31 @@
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "steven-wise-seed",
+
+	// Same pinning rule as the root config: this OAuth login can see seven
+	// accounts, so the target is named explicitly rather than left to
+	// wrangler's autoconfig. This must be the account that owns the *preview*
+	// bindings below, never the client account the bytes are read from.
+	"account_id": "99b02cd48e530b9897b662a011131ab3",
+	"compatibility_date": "2026-02-26",
+	"main": "./worker.mjs",
+
+	// Temporary and hand-driven: it needs a URL to curl, and it is deleted once
+	// /verify reports every object present.
+	"workers_dev": true,
+
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "steven-wise-portfolio-preview",
+			"database_id": "8a624be0-472b-43e5-ac00-a13c8cd8ef6f"
+		}
+	],
+
+	"r2_buckets": [
+		{
+			"binding": "BUCKET",
+			"bucket_name": "steven-wise-works-preview"
+		}
+	]
+}
