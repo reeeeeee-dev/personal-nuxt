@@ -33,6 +33,9 @@ app/
 └── assets/css/main.css   # design tokens + .iris-wipe + .external-link
 
 public/                   # favicons, og-image, static assets
+cohost/                   # second deployments of the sites /projects embeds
+├── deploy.sh             # clone → build → deploy each preview Worker
+└── seed-steven-wise/     # one-off D1 + R2 seeder for the Steven Wise copy
 wrangler.jsonc            # Cloudflare Worker config (custom domain: reetikpatel.me)
 nuxt.config.ts
 ```
@@ -62,6 +65,48 @@ bun run deploy         # build + wrangler deploy → reetikpatel.me
 
 Requires `wrangler login` and access to the Cloudflare account bound in
 [`wrangler.jsonc`](wrangler.jsonc).
+
+## Co-hosted project previews
+
+[`/projects`](app/pages/projects.vue) renders some projects as live miniatures
+inside an iframe ([`MiniSitePreview.vue`](app/components/MiniSitePreview.vue))
+rather than as screenshots. Those iframes deliberately do **not** point at the
+projects' production hostnames — most of those sites are client-owned, and
+embedding production would spend a client's bandwidth and break the preview
+whenever they change their site.
+
+Instead each embeddable project is deployed a second time into my own
+Cloudflare account, and `projects.vue` embeds that copy via its `cohost()`
+helper. Each site keeps its own `wrangler.jsonc` pointed at its own domain;
+[`cohost/deploy.sh`](cohost/deploy.sh) generates a `wrangler.cohost.jsonc`
+override at deploy time that repins `account_id`, drops `routes`, and enables
+`workers_dev`.
+
+```bash
+./cohost/deploy.sh                        # all three
+./cohost/deploy.sh puracoco steven-wise   # a subset
+```
+
+| Project | Worker | Notes |
+| --- | --- | --- |
+| Pura Coco | `puracoco-preview` | Nuxt 4 SSR |
+| All AV Services | `allavservices-preview` | Next.js static export, assets-only Worker |
+| Steven Wise | `steven-wise-preview` | Nuxt 4 SSR + its own D1 and R2 |
+
+Clones land in the gitignored `cohost/.work/`, so the first run is slow.
+
+Steven Wise needs data as well as code: its gallery reads artwork metadata from
+D1 and image bytes from R2. The copy gets its own `steven-wise-portfolio-preview`
+database and `steven-wise-works-preview` bucket, seeded once by
+[`cohost/seed-steven-wise`](cohost/seed-steven-wise) — a throwaway Worker that
+copies objects at the edge, because the R2 REST API returns object bodies as
+lossily decoded strings and corrupts every image. Deploy it, walk `/seed?offset=`
+until `/verify` reports no missing objects, then delete it.
+
+That copy's `ACCESS_AUD` is intentionally not a real Cloudflare Access
+audience, so `/admin` and `/api/admin` return 403 on the preview. The gallery is
+public and unaffected. Pointing it at the real audience would stand up a second,
+unguarded admin console over a client's data.
 
 ## Design notes
 

@@ -11,6 +11,15 @@ const mediaClassWhite =
 const mediaClass =
   "h-full max-h-[36rem] w-full max-w-2xl object-contain sm:max-h-[44rem]";
 
+/**
+ * URL of a project's second deployment, built by cohost/deploy.sh.
+ *
+ * The previews below embed these rather than each project's real hostname:
+ * most of these sites are client-owned, so an iframe pointed at production
+ * would spend a client's bandwidth and break the day they redesign it.
+ */
+const cohost = (worker: string) => `https://${worker}.reetik2000.workers.dev/`;
+
 const projects: Entry[] = [
   {
     id: "stevenfwise",
@@ -27,7 +36,7 @@ const projects: Entry[] = [
       "Cloudflare Zero Trust",
     ],
     embed: {
-      src: "https://stevenfwise.com/",
+      src: cohost("steven-wise-preview"),
       title: "Steven Wise, running live and interactive at miniature scale",
     },
     images: [
@@ -69,6 +78,10 @@ const projects: Entry[] = [
     tocLabel: "Official Pura Coco",
     title: "Official Pura Coco",
     stack: ["Typescript", "Vue", "NuxtJS", "Tailwind", "Cloudflare"],
+    embed: {
+      src: cohost("puracoco-preview"),
+      title: "Pura Coco, running live and interactive at miniature scale",
+    },
     images: [
       {
         src: "/img/puracoco.gif",
@@ -82,6 +95,10 @@ const projects: Entry[] = [
     tocLabel: "All AV Services",
     title: "All AV Services",
     stack: ["Typescript", "SCSS", "React", "NextJS"],
+    embed: {
+      src: cohost("allavservices-preview"),
+      title: "All AV Services, running live and interactive at miniature scale",
+    },
     images: [
       {
         src: "/img/allavservices.gif",
