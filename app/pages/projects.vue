@@ -42,7 +42,7 @@ const projects: Entry[] = [
     },
     images: [
       {
-        src: "/img/stevenfwise.png",
+        src: "/img/stevenfwise.gif",
         alt: "Steven Wise website preview",
         class: mediaClass,
       },
