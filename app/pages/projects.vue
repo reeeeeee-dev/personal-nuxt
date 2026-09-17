@@ -13,6 +13,32 @@ const mediaClass =
 
 const projects: Entry[] = [
   {
+    id: "stevenfwise",
+    tocLabel: "Steven Wise",
+    title: "Steven Wise",
+    stack: [
+      "Typescript",
+      "Vue",
+      "Nuxt 4",
+      "Tailwind v4",
+      "Cloudflare D1",
+      "Cloudflare R2",
+      "Cloudflare Workers",
+      "Cloudflare Zero Trust",
+    ],
+    embed: {
+      src: "https://stevenfwise.com/",
+      title: "Steven Wise, running live and interactive at miniature scale",
+    },
+    images: [
+      {
+        src: "/img/stevenfwise.png",
+        alt: "Steven Wise website preview",
+        class: mediaClass,
+      },
+    ],
+  },
+  {
     id: "this-site",
     tocLabel: "This Site",
     title: "This Site",
@@ -108,7 +134,28 @@ const projects: Entry[] = [
       media-wrapper-class="max-w-2xl lg:max-w-none"
     >
       <template #body="{ entry }">
-        <template v-if="entry.id === 'allavservices'">
+        <template v-if="entry.id === 'stevenfwise'">
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            Steven Wise is an artist based in the Ozarks. He was my drawing professor at NWACC. The site runs on Nuxt and ships
+            to a Cloudflare Worker. All the data (title, year, medium, dimensions) lives in a D1 table. The images
+            sit in R2. A hidden admin page behind Cloudflare Zero Trust
+            lets him add new work himself. No third party authentication and no CMS bill. He only pays for the domain. The
+            background is the closest I could get to Strathmore 300 drawing
+            paper. It seemed right to hang his work on the surface he
+            taught me to draw on. Visit him at
+            <a
+              href="https://stevenfwise.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link"
+              >stevenfwise.com</a
+            >.
+          </p>
+        </template>
+
+        <template v-else-if="entry.id === 'allavservices'">
           <p
             class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
           >
