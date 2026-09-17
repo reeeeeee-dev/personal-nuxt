@@ -40,21 +40,24 @@ nuxt.config.ts
 ## Develop
 
 ```bash
-yarn install
-yarn dev               # http://localhost:3000
+bun install
+bun run dev            # http://localhost:3000
 ```
 
 ## Build & preview
 
 ```bash
-yarn build             # nuxt build → .output/
-yarn preview           # build + wrangler dev (runs on the Workers runtime locally)
+bun run build          # nuxt build → .output/
+bun run preview        # build + wrangler dev (runs on the Workers runtime locally)
 ```
+
+Use `bun run build`, not `bun build` — the latter is Bun's own bundler
+subcommand and will not run the Nuxt script.
 
 ## Deploy
 
 ```bash
-yarn deploy            # build + wrangler deploy → reetikpatel.me
+bun run deploy         # build + wrangler deploy → reetikpatel.me
 ```
 
 Requires `wrangler login` and access to the Cloudflare account bound in

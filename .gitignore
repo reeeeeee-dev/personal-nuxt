@@ -31,6 +31,3 @@ logs
 # Agent / tool artifacts
 .omo
 .playwright-mcp
-
-# Yarn install state
-.yarn/install-state.gz

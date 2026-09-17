@@ -2,13 +2,14 @@
 	"name": "personal-nuxt",
 	"type": "module",
 	"private": true,
+	"packageManager": "bun@1.3.13",
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
-		"preview": "yarn run build && wrangler dev",
+		"preview": "bun run build && wrangler dev",
 		"postinstall": "nuxt prepare",
-		"deploy": "yarn run build && wrangler deploy",
+		"deploy": "bun run build && wrangler deploy",
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {
