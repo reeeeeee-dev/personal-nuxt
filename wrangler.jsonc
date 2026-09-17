@@ -1,6 +1,11 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "personal-nuxt",
+	// Pinned on purpose. This OAuth login can see seven Cloudflare accounts,
+	// and with no account_id wrangler's autoconfig picks one and caches it,
+	// which is how personal-nuxt once got uploaded into a client's account.
+	// reetikpatel.me lives here, so the route below only resolves here.
+	"account_id": "99b02cd48e530b9897b662a011131ab3",
 	"compatibility_date": "2026-02-26",
 	"observability": {
 		"enabled": true
