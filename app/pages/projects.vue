@@ -23,6 +23,41 @@ const cohost = (subdomain: string) => `https://${subdomain}.reetikpatel.me/`;
 
 const projects: Entry[] = [
   {
+    id: "ngg-dandiya",
+    tocLabel: "NGG Dandiya",
+    title: "NGG Dandiya",
+    stack: [
+      "Typescript",
+      "React",
+      "React Router 8",
+      "Tailwind v4",
+      "Hono",
+      "Drizzle",
+      "Stripe",
+      "Cloudflare Workers",
+      "Cloudflare D1",
+      "Cloudflare R2",
+      "Cloudflare Queues",
+      "Cloudflare Zero Trust",
+    ],
+    embed: {
+      src: cohost("nggdandiya"),
+      title: "NGG Dandiya, running live and interactive at miniature scale",
+    },
+    images: [
+      {
+        src: "/img/ngg-dandiya.webp",
+        alt: "NGG Dandiya website preview",
+        class: mediaClass,
+      },
+    ],
+    figure: {
+      src: "/img/ngg-dandiya-architecture.png",
+      alt: "NGG Dandiya architecture diagram. Visitors reach the public site Worker over HTTPS, and organizers reach the admin Worker through Cloudflare Access. Both call the ngg-api Worker over service bindings. The API runs Stripe Checkout, is the only Worker that writes to the D1 database, and sends ticket email through a Cloudflare Queue. The site streams sponsor logos from a private R2 bucket.",
+      class: "h-auto w-full max-w-2xl",
+    },
+  },
+  {
     id: "stevenfwise",
     tocLabel: "Steven Wise",
     title: "Steven Wise",
@@ -152,7 +187,63 @@ const projects: Entry[] = [
       media-wrapper-class="max-w-2xl lg:max-w-none"
     >
       <template #body="{ entry }">
-        <template v-if="entry.id === 'stevenfwise'">
+        <template v-if="entry.id === 'ngg-dandiya'">
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            The Northwest Arkansas Gujarati Group throws a Dandiya night every
+            Navratri. I built the site that sells the tickets. It&rsquo;s a
+            Bun and Turborepo monorepo of three Cloudflare Workers sharing one
+            D1 database: the public site, an admin for the organizers, and a
+            ticketing API. The site and the admin are React Router 8 apps on
+            React 19 and Tailwind v4. The API runs on Hono, and Drizzle owns
+            the schema and migrations.
+          </p>
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            The Workers talk over service bindings, typed RPC with no HTTP
+            hop. Each front end is bound to its own API entrypoint, so the
+            public site can&rsquo;t call a single admin method. The API is the
+            only Worker that writes to D1, and it holds every ticketing
+            secret. Its only public routes are the Stripe webhook and the
+            Apple Wallet pass.
+          </p>
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            Checkout runs on Stripe&rsquo;s hosted page. A signed, idempotent
+            webhook issues the tickets and drops the email on a Cloudflare
+            Queue, so a failed send retries on its own instead of failing the
+            payment. The email carries a PDF with each ticket&rsquo;s QR code,
+            plus Apple and Google Wallet passes. Sponsor logos sit in a private
+            R2 bucket and stream through the site&rsquo;s Worker.
+          </p>
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            The admin sits behind Cloudflare Zero Trust. Access checks the
+            organizers at the edge, then the Worker verifies the Access token
+            again before anything loads. Inside they get a sales dashboard
+            with a spreadsheet export, coupons, orders, and a door check-in
+            page that reads tickets from a webcam or a handheld scanner.
+          </p>
+          <p
+            class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
+          >
+            The preview here is the public site alone, on its own database
+            with sales turned off. The real one is at
+            <a
+              href="https://nggdandiya.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link"
+              >nggdandiya.com</a
+            >.
+          </p>
+        </template>
+
+        <template v-else-if="entry.id === 'stevenfwise'">
           <p
             class="mt-6 text-base leading-relaxed text-(--cream)/90 md:text-lg md:leading-relaxed"
           >
