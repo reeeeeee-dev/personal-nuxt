@@ -43,4 +43,6 @@ export type Entry = {
 	video?: EntryVideo;
 	/** Live page preview. Takes precedence over `video` and `images` when quality is "live". */
 	embed?: EntryEmbed;
+	/** Shown under the main media in both qualities, linked to its full-size file. */
+	figure?: EntryImage;
 };

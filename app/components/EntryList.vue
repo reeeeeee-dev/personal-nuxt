@@ -80,7 +80,7 @@ const { quality } = useMediaQuality();
 
         <div
           v-if="e.embed || e.video || e.images?.length"
-          class="flex w-full shrink-0 justify-center lg:justify-end"
+          class="flex w-full shrink-0 flex-col items-center gap-6 lg:items-end"
           :class="mediaColumnClass ?? 'lg:w-72 lg:max-w-[40%]'"
         >
           <div
@@ -131,6 +131,27 @@ const { quality } = useMediaQuality();
               decoding="async"
             />
           </div>
+          <!-- biome-ignore lint/a11y/useAnchorContent: the image's bound alt names the link -->
+          <a
+            v-if="e.figure"
+            :href="e.figure.src"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex w-full justify-center transition-opacity hover:opacity-80"
+            :class="mediaWrapperClass ?? 'max-w-sm lg:max-w-none'"
+          >
+            <!-- biome-ignore lint/a11y/useAltText: alt comes from the figure -->
+            <img
+              :src="e.figure.src"
+              :alt="e.figure.alt"
+              :class="[
+                e.figure.class,
+                'shrink-0 rounded-sm border border-(--cream)/10',
+              ]"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
         </div>
       </div>
     </section>
