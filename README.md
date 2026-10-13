@@ -87,12 +87,13 @@ override at deploy time that repins `account_id` and swaps `routes` for a
 account nor bind a client's hostname.
 
 ```bash
-./cohost/deploy.sh                 # both
+./cohost/deploy.sh                 # all of them
 ./cohost/deploy.sh steven-wise     # a subset
 ```
 
 | Project | Host | Worker | Notes |
 | --- | --- | --- | --- |
+| NGG Dandiya | `nggdandiya.reetikpatel.me` | `ngg-dandiya-preview` | React Router 8 SSR, public site only + its own D1 and R2, sales off |
 | Steven Wise | `stevenwise.reetikpatel.me` | `steven-wise-preview` | Nuxt 4 SSR + its own D1 and R2 |
 | All AV Services | `allav.reetikpatel.me` | `allavservices-preview` | Next.js static export, assets-only Worker |
 | Pura Coco | `puracoco.reetikpatel.me` | `official-puracoco` | Nuxt 4 SSR — deployed from its own repo, not by `deploy.sh` |
@@ -117,6 +118,19 @@ That copy's `ACCESS_AUD` is intentionally not a real Cloudflare Access
 audience, so `/admin` and `/api/admin` return 403 on the preview. The gallery is
 public and unaffected. Pointing it at the real audience would stand up a second,
 unguarded admin console over a client's data.
+
+NGG Dandiya is three Workers — public site, organizers' admin, ticketing API —
+and only the public site is co-hosted. The copy has no service binding to the
+API, which the site's tickets page already reads as "checkout not configured",
+and its `ngg-db-preview` database is rebuilt from the repo on every deploy
+(migrations, the seed, then `sales_enabled = 0`), so it lists prices with sales
+closed and never holds an order or a buyer. The site builds through
+`@cloudflare/vite-plugin`, whose generated deploy config targets the client's
+account and domain, so `deploy.sh` carries only its bundle shape into the
+co-host config. `SITE_URL` stays `https://nggdandiya.com`: the copy serves
+`noindex` and points its canonicals at the real site. The sponsor logos in
+`ngg-sponsor-logos-preview` are a one-time copy of the public `/sponsors/*`
+files; copy them again if the real lineup changes.
 
 ## Design notes
 

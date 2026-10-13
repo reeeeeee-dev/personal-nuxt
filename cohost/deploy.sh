@@ -4,7 +4,7 @@
 #
 # The Projects page renders each project inside an iframe (MiniSitePreview). It
 # deliberately does not point those iframes at the sites' production hostnames:
-# two of the three are client-owned, and a portfolio page should not send its
+# most of them are client-owned, and a portfolio page should not send its
 # traffic to a client's origin, nor break when a client changes or retires their
 # site. So every embeddable project is deployed a second time here, into my own
 # Cloudflare account, and the page embeds that copy.
@@ -62,9 +62,9 @@ sync_repo() {
 	fi
 }
 
-deploy() { # $1=clone dir name
+deploy() { # $1=clone dir name, $2=config path inside it
 	log "$1: deploying"
-	"$WRANGLER" deploy --config "$WORK/$1/wrangler.cohost.jsonc"
+	"$WRANGLER" deploy --config "$WORK/$1/${2:-wrangler.cohost.jsonc}"
 }
 
 # Workers static assets reject any single file over 25 MiB, which a site that
@@ -225,18 +225,98 @@ cohost_steven_wise() {
 	deploy steven-wise-website
 }
 
+# ---------------------------------------------------------------------------
+# NGG Dandiya — a Bun + Turborepo monorepo of three Workers: the public site,
+# the organizers' admin, and the ticketing API. Only the public site is
+# co-hosted, with ticket sales off.
+#
+# The site reaches the API only through a service binding, and this copy has
+# none. Its tickets page already reads an unreachable API as "checkout not
+# configured", so it shows the prices with sales closed rather than erroring.
+# The API holds every ticketing secret and the admin sits behind the client's
+# Zero Trust, so neither belongs in a portfolio copy.
+#
+# The data is its own ngg-db-preview database, rebuilt from the repo on every
+# run: the migrations, the seed (the real edition, date and prices; no orders,
+# no buyers), then sales_enabled forced back to 0. Sponsor logos are a one-time
+# copy of the public /sponsors/* files into ngg-sponsor-logos-preview.
+#
+# React Router builds through @cloudflare/vite-plugin, which bundles the Worker
+# itself and writes a deploy config beside the output. That config targets the
+# client's account, domain and API, so it is never deployed; only its bundle
+# shape (entry, module rules, assets, compatibility) is carried into the
+# co-host config, which sits beside it so those relative paths still resolve.
+# Its vars come along unchanged on purpose: SITE_URL stays on nggdandiya.com,
+# so this host serves noindex and points its canonicals at the real site.
+# ---------------------------------------------------------------------------
+cohost_ngg_dandiya() {
+	sync_repo reeeeeee-dev/ngg-dandiya-website ngg-dandiya-website
+	local dir="$WORK/ngg-dandiya-website"
+	local server="$dir/apps/site/build/server"
+	local db_config="$dir/packages/db/wrangler.cohost.jsonc"
+	local db_id=17620242-09cf-4f02-a483-253d0cc33395
+
+	log "ngg-dandiya: install + build"
+	(cd "$dir" && bun install --frozen-lockfile)
+	(cd "$dir/apps/site" && rm -rf build && bun run build)
+
+	cat >"$db_config" <<-JSON
+		{
+		  "name": "ngg-db-preview",
+		  "account_id": "$ACCOUNT_ID",
+		  "compatibility_date": "2026-09-21",
+		  "d1_databases": [
+		    {
+		      "binding": "ngg_db",
+		      "database_name": "ngg-db-preview",
+		      "database_id": "$db_id",
+		      "migrations_dir": "drizzle"
+		    }
+		  ]
+		}
+	JSON
+
+	# Schema before code, as in the repo's own runbooks: a deploy ahead of its
+	# migration 500s on the first request.
+	log "ngg-dandiya: migrate + seed, sales off"
+	"$WRANGLER" d1 migrations apply ngg-db-preview --remote --config "$db_config"
+	"$WRANGLER" d1 execute ngg-db-preview --remote --yes --config "$db_config" \
+		--file "$dir/packages/db/seed/seed.sql"
+	"$WRANGLER" d1 execute ngg-db-preview --remote --yes --config "$db_config" \
+		--command "UPDATE editions SET sales_enabled = 0;"
+
+	jq --arg account "$ACCOUNT_ID" --arg db_id "$db_id" '{
+		name: "ngg-dandiya-preview",
+		account_id: $account,
+		main, rules, no_bundle, assets, compatibility_date, compatibility_flags,
+		vars,
+		observability: { enabled: true },
+		workers_dev: true,
+		d1_databases: [
+			{ binding: "ngg_db", database_name: "ngg-db-preview", database_id: $db_id }
+		],
+		r2_buckets: [
+			{ binding: "SPONSOR_LOGOS", bucket_name: "ngg-sponsor-logos-preview" }
+		],
+		routes: [{ pattern: "nggdandiya.reetikpatel.me", custom_domain: true }]
+	}' "$server/wrangler.json" >"$server/wrangler.cohost.jsonc"
+
+	deploy ngg-dandiya-website apps/site/build/server/wrangler.cohost.jsonc
+}
+
 main() {
 	local sites=("$@")
 	if [[ ${#sites[@]} -eq 0 ]]; then
-		sites=(allavservices steven-wise)
+		sites=(allavservices steven-wise ngg-dandiya)
 	fi
 
 	for site in "${sites[@]}"; do
 		case "$site" in
 			allavservices) cohost_allavservices ;;
 			steven-wise) cohost_steven_wise ;;
+			ngg-dandiya) cohost_ngg_dandiya ;;
 			*)
-				echo "unknown site: $site (expected allavservices, steven-wise)" >&2
+				echo "unknown site: $site (expected allavservices, steven-wise, ngg-dandiya)" >&2
 				exit 64
 				;;
 		esac
